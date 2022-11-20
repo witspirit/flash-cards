@@ -25,11 +25,13 @@ public class Controller {
         this.dataPath = dataPath;
     }
 
-    @GetMapping("/browse/{path}")
-    public List<String> listDataItems(@PathVariable(required = false) String path) throws IOException, URISyntaxException {
-        if (path == null) {
-            path = ".";
-        }
+    @GetMapping("/browse")
+    public List<String> listDataItems() throws IOException, URISyntaxException {
+        return listDataItems(".");
+    }
+
+    @GetMapping("/browse/{path:.+}")
+    public List<String> listDataItems(@PathVariable String path) throws IOException, URISyntaxException {
         Path resolvedPath = dataPath.resolve(path);
         LOGGER.debug("Browse: path = {} resolvedPath = {}", path, resolvedPath);
         Stream<Path> paths = Files.list(resolvedPath);
