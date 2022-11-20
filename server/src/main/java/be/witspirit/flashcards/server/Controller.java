@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -27,11 +28,16 @@ public class Controller {
 
     @GetMapping("/browse")
     public List<String> listDataItems() throws IOException, URISyntaxException {
-        return listDataItems(".");
+        return list(".");
     }
 
-    @GetMapping("/browse/{path:.+}")
-    public List<String> listDataItems(@PathVariable String path) throws IOException, URISyntaxException {
+    @GetMapping("/browse/**") // To sidestep the / delimiter issue
+    public List<String> listDataItems(HttpServletRequest request) throws IOException, URISyntaxException {
+        String filePath = request.getRequestURI().split(request.getContextPath() + "/browse/")[1];
+        return list(filePath);
+    }
+
+    private List<String> list(String path) throws IOException {
         Path resolvedPath = dataPath.resolve(path);
         LOGGER.debug("Browse: path = {} resolvedPath = {}", path, resolvedPath);
         Stream<Path> paths = Files.list(resolvedPath);
