@@ -8,7 +8,7 @@
 /dataSources.local.xml
 
 # Additions to avoid conflicts
-/codeStyles
-aws.xml
-checkstyle-idea.xml
-/libraries
+/codeStyles/
+/aws.xml
+/checkstyle-idea.xml
+/libraries/
