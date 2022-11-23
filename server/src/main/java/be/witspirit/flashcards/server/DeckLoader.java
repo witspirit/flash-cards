@@ -31,9 +31,9 @@ public class DeckLoader {
             if (Files.exists(resolvedPath)) {
                 LOGGER.debug("Deck at {} exists", path);
 
-                CSVParser parser = CSVFormat.DEFAULT.parse(new FileReader(resolvedPath.toFile()));
+                CSVParser parser = CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build()
+                  .parse(new FileReader(resolvedPath.toFile()));
                 List<String> headerNames = parser.getHeaderNames();
-
 
                 return new Deck(headerNames);
             }
