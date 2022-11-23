@@ -18,6 +18,7 @@ public class DeckLoaderTest {
         assertThat(deck).isNotNull();
 
         assertThat(deck.elements()).containsExactly("Question", "Answer");
+        assertThat(deck.size()).isEqualTo(3);
     }
 
     @Test

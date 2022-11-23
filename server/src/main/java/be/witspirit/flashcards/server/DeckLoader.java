@@ -1,7 +1,9 @@
 package be.witspirit.flashcards.server;
 
+import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -35,7 +37,10 @@ public class DeckLoader {
                   .parse(new FileReader(resolvedPath.toFile()));
                 List<String> headerNames = parser.getHeaderNames();
 
-                return new Deck(headerNames);
+                Deck deck = new Deck(headerNames);
+                deck.addValues(parser.stream().map(CSVRecord::toMap).toList());
+
+                return deck;
             }
             LOGGER.debug("Deck at {} does not exist", path);
             return null;
