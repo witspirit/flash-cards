@@ -6,3 +6,9 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Additions to avoid conflicts
+/codeStyles
+aws.xml
+checkstyle-idea.xml
+/libraries
