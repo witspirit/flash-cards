@@ -1,5 +1,7 @@
 package be.witspirit.flashcards.server;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -33,19 +35,26 @@ public class DeckLoader {
             if (Files.exists(resolvedPath)) {
                 LOGGER.debug("Deck at {} exists", path);
 
-                CSVParser parser = CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build()
-                  .parse(new FileReader(resolvedPath.toFile()));
-                List<String> headerNames = parser.getHeaderNames();
-
-                Deck deck = new Deck(headerNames);
-                deck.addValues(parser.stream().map(CSVRecord::toMap).toList());
-
-                return deck;
+                FileReader reader = new FileReader(resolvedPath.toFile());
+                return load(reader);
             }
             LOGGER.debug("Deck at {} does not exist", path);
             return null;
         } catch (Exception e) {
             throw new RuntimeException("Something went wrong...", e);
+        }
+    }
+
+    public static Deck load(Reader reader) {
+        try (CSVParser parser = CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build()
+            .parse(reader)) {
+            List<String> headerNames = parser.getHeaderNames();
+
+            Deck deck = new Deck(headerNames);
+            deck.addValues(parser.stream().map(CSVRecord::toMap).toList());
+            return deck;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load deck", e);
         }
     }
 }
