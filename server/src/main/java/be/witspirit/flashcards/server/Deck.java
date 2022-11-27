@@ -1,10 +1,6 @@
 package be.witspirit.flashcards.server;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Deck {
     private final List<String> elements;
@@ -33,5 +29,11 @@ public class Deck {
 
     public int size() {
         return cards.size();
+    }
+
+    public Card drawRandom() {
+        Random random = new Random();
+        int selectedIndex = random.nextInt(cards.size());
+        return cards.get(selectedIndex);
     }
 }
