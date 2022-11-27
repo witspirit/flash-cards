@@ -1,16 +1,16 @@
 package be.witspirit.flashcards.server;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -35,8 +35,7 @@ public class DeckLoader {
             if (Files.exists(resolvedPath)) {
                 LOGGER.debug("Deck at {} exists", path);
 
-                FileReader reader = new FileReader(resolvedPath.toFile());
-                return load(reader);
+                return load(resolvedPath.toFile());
             }
             LOGGER.debug("Deck at {} does not exist", path);
             return null;
@@ -45,9 +44,19 @@ public class DeckLoader {
         }
     }
 
-    public static Deck load(Reader reader) {
-        try (CSVParser parser = CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build()
-            .parse(reader)) {
+    public static Deck load(ClassPathResource cpResource) {
+        try {
+            return load(cpResource.getFile());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to convert ClassPathResource into File", e);
+        }
+    }
+
+    public static Deck load(File file) {
+        try (FileReader reader = new FileReader(file);
+             CSVParser parser = CSVFormat.RFC4180.builder()
+               .setHeader().setSkipHeaderRecord(true).build()
+               .parse(reader)) {
             List<String> headerNames = parser.getHeaderNames();
 
             Deck deck = new Deck(headerNames);

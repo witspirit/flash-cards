@@ -1,12 +1,10 @@
 package be.witspirit.flashcards.server;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
-
-import java.nio.file.Path;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class DeckTest {
 
@@ -14,9 +12,8 @@ public class DeckTest {
 
     @BeforeAll
     public static void loadDeck() {
-        ClassPathResource classPathResource = new ClassPathResource("/sample-deck.csv");
-
-        // deck = deckLoader.load("sample-deck.csv");
+        deck = DeckLoader.load(new ClassPathResource("/sample-deck.csv"));
+        assertThat(deck).isNotNull();
     }
 
     @Test
