@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/excel-flashcard-generator.main.iml" filepath="$PROJECT_DIR$/.idea/modules/excel-flashcard-generator.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/excel-flashcard-generator.test.iml" filepath="$PROJECT_DIR$/.idea/modules/excel-flashcard-generator.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/flash-cards.iml" filepath="$PROJECT_DIR$/.idea/flash-cards.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
     </modules>
