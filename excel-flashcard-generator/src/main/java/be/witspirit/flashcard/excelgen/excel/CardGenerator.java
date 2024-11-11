@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,11 +17,13 @@ public class CardGenerator {
     private static final String TEMPLATE = "flashcard-template.xlsx";
     private static final int CARDS_PER_SHEET = 60;
 
-    public static void generate(String outputPath, List<ExcelCard> cards) throws IOException {
+    public static File generate(String outputPath, List<ExcelCard> cards) throws IOException {
+        File outputFile = new File(outputPath);
         var templateInputStream = new ClassPathResource(TEMPLATE).getInputStream();
-        var excelOutputStream = new FileOutputStream(outputPath);
+        var excelOutputStream = new FileOutputStream(outputFile);
         var sheets = new JxlsRunner.ExcelVariable("pages", splitIntoPages(cards));
         JxlsRunner.generate(templateInputStream, excelOutputStream, List.of(sheets));
+        return outputFile;
     }
 
     private static List<ExcelCard[]> splitIntoPages(List<ExcelCard> cards) {

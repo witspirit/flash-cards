@@ -35,4 +35,8 @@ public class Deck {
         return cards;
     }
 
+    public DeckExtractors extractors() {
+        return new DeckExtractors(this);
+    }
+
 }
