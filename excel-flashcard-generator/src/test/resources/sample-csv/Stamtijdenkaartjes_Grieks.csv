@@ -1,0 +1,398 @@
+Woord,Grondwoord,Vorm en Tijd
+ἄξω,ἄγειν,act. futurum
+ἀχθήσομαι,ἄγειν,pass. futurum
+ἤγαγον,ἄγειν,act. aorist
+ἤχθην,ἄγειν,pass. aorist
+ἦχα,ἄγειν,act. perfectum
+ἦγμαι,ἄγειν,pass. perfectum
+αἱρήσω,αἱρεῖν,act. futurum
+αἱρεθήσομαι,αἱρεῖν,pass. futurum
+εἷλον,αἱρεῖν,act. aorist
+ᾑρέθην,αἱρεῖν,pass. aorist
+ᾕρηκα,αἱρεῖν,act. perfectum
+ᾕρημαι (1),αἱρεῖν,pass. perfectum
+αἱρήσομαι,αἱρεῖσθαι,med. futurum
+εἱλόμην,αἱρεῖσθαι,med. aorist
+ᾕρημαι (2),αἱρεῖσθαι,med. perfectum
+ἀποθανοῦμαι,ἀποθνῄσκειν,sem.-dep. futurum
+ἀπέθανον,ἀποθνῄσκειν,act. aorist
+ἀποτέθνηκα,ἀποθνῄσκειν,act. perfectum (1)
+τέθνηκα,ἀποθνῄσκειν,act. perfectum (2)
+ἀποκτενῶ,ἀποκτείνειν,act. futurum
+ἀπέκτεινα,ἀποκτείνειν,act. aorist (1)
+ἀπέκτανον,ἀποκτείνειν,act. aorist (2)
+ἀπέκτονα,ἀποκτείνειν,act. perfectum
+ἄρξω,ἄρχειν,act. futurum
+ἄρξομαι (1),ἄρχειν,pass. futurum
+ἦρξα,ἄρχειν,act. aorist
+ἤρχθην,ἄρχειν,pass. aorist
+ἦρχα,ἄρχειν,act. perfectum
+ἄρξομαι (2),ἄρχεσθαι,med. futurum
+ἠρξάμην,ἄρχεσθαι,med. aorist
+ἦργμαι,ἄρχεσθαι,med. perfectum
+ἀφίξομαι,ἀφικνεῖσθαι,dep. futurum
+ἀφικόμην,ἀφικνεῖσθαι,dep. aorist
+ἀφῖγμαι,ἀφικνεῖσθαι,dep. perfectum
+βήσομαι,βαίνειν,sem.-dep. futurum
+ἔβην,βαίνειν,act. aorist
+βέβηκα,βαίνειν,act. perfectum
+γενήσομαι,γίγνεσθαι,dep. futurum
+ἐγένομην,γίγνεσθαι,dep. aorist
+γεγένημαι,γίγνεσθαι,dep. perfectum (1)
+γέγονα,γίγνεσθαι,dep. perfectum (2)
+γνώσομαι,γιγνώσκειν,sem.-dep. futurum
+γνωσθήσομαι,γιγνώσκειν,pass. futurum
+ἔγνων,γιγνώσκειν,act. aorist
+ἐγνώσθην,γιγνώσκειν,pass. aorist
+ἔγνωκα,γιγνώσκειν,act. perfectum
+ἔγνωσμαι,γιγνώσκειν,pass. perfectum
+ἐρωτήσω,ἐρωτᾶν,act. futurum
+ἐρήσομαι,ἐρωτᾶν,med. futurum
+ἐρωτηθήσομαι,ἐρωτᾶν,pass. futurum
+ἠρώτησα,ἐρωτᾶν,act. aorist
+ἠρόμην (1),ἐρωτᾶν,med. aorist
+ἠρωτήθην,ἐρωτᾶν,pass. aorist
+ἠρώτηκα,ἐρωτᾶν,act. perfectum
+ἠρώτημαι,ἐρωτᾶν,pass. perfectum
+ἠρόμην (2),ἐρέσθαι,dep. aorist
+ἔδομαι,ἐσθίειν,sem.-dep. futurum
+ἔφαγον,ἐσθίειν,act. aorist
+ἠδέσθην,ἐσθίειν,pass. aorist
+ἐδήδοκα,ἐσθίειν,act. perfectum
+ἐδήδεσμαι,ἐσθίειν,pass. perfectum
+εὑρήσω,εὑρίσκειν,act. futurum
+εὑρεθήσομαι,εὑρίσκειν,pass. futurum
+ηὗρον,εὑρίσκειν,act. aorist (1)
+εὗρον,εὑρίσκειν,act. aorist (2)
+ηὑρέθην,εὑρίσκειν,pass. aorist (1)
+εὑρέθην,εὑρίσκειν,pass. aorist (2)
+ηὕρηκα,εὑρίσκειν,act. perfectum (1)
+εὕρηκα,εὑρίσκειν,act. perfectum (2)
+ηὕρημαι,εὑρίσκειν,pass. perfectum (1)
+εὕρημαι,εὑρίσκειν,pass. perfectum (2)
+ἕξω,ἔχειν,act. futurum (1)
+σχήσω,ἔχειν,act. futurum (2)
+ἕξομαι,ἔχειν,med. futurum (1)
+σχήσομαι,ἔχειν,med. futurum (2)
+ἔσχον,ἔχειν,act. aorist
+ἐσχόμην,ἔχειν,med. aorist
+ἔσχηκα,ἔχειν,act. perfectum
+ἔσχημαι,ἔχειν,med. perfectum
+εἶμι,ἰέναι,act. futurum
+ἐλεύσομαι,ἰέναι,sem.-dep. futurum
+ἦλθον,ἰέναι,act. aorist
+ἐλήλυθα,ἰέναι,act. perfectum
+στήσω,ἱστάναι,act. futurum
+στήσομαι,ἱστάναι,med. futurum
+σταθήσομαι,ἱστάναι,pass. futurum
+ἔστησα,ἱστάναι,act. aorist
+ἐστησάμην,ἱστάναι,indir. ref. med. aorist
+ἔστην,ἱστάναι,dir. ref. med. aorist
+ἐστάθην,ἱστάναι,pass. aorist
+ἕστηκα,ἱστάναι,med. perfectum
+λήψομαι,λαμβάνειν,sem.-dep. futurum
+ληφθήσομαι,λαμβάνειν,pass. futurum
+ἔλαβον,λαμβάνειν,act. aorist
+ἐλήφθην,λαμβάνειν,pass. aorist
+εἴληφα,λαμβάνειν,act. perfectum
+εἴλημμαι,λαμβάνειν,pass. perfectum
+λήσω,λανθάνειν,act. futurum
+ἔλαθον,λανθάνειν,act. aorist
+λέληθα,λανθάνειν,act. perfectum
+ἐρῶ,λέγειν,act. futurum
+ῥηθήσομαι,λέγειν,pass. futurum
+εἶπον,λέγειν,act. aorist (1)
+εἶπα,λέγειν,act. aorist (2)
+ἐρρήθην,λέγειν,pass. aorist
+εἴρηκα,λέγειν,act. perfectum
+εἴρημαι,λέγειν,pass. perfectum
+λείψω,λείπειν,act. futurum
+λειφθήσομαι,λείπειν,pass. futurum
+ἔλιπον,λείπειν,act. aorist
+ἐλείφθην,λείπειν,pass. aorist
+λέλοιπα,λείπειν,act. perfectum
+λέλειμμαι,λείπειν,pass. perfectum
+μαθήσομαι,μανθάνειν,sem.-dep. futurum
+ἔμαθον,μανθάνειν,act. aorist
+μεμάθηκα,μανθάνειν,act. perfectum
+οἰήσομαι,οἴεσθαι,dep. futurum
+ᾠήθην,οἴεσθαι,dep. aorist
+ὄψομαι,ὁρᾶν,sem.-dep. futurum
+ὀφθήσομαι,ὁρᾶν,pass. futurum
+εἶδον,ὁρᾶν,act. aorist
+ὤφθην,ὁρᾶν,pass. aorist
+ἑώρακα,ὁρᾶν,act. perfectum
+ἑώραμαι,ὁρᾶν,pass. perfectum
+πείσομαι (1),πάσχειν,sem.-dep. futurum
+ἔπαθον,πάσχειν,act. aorist
+πέπονθα,πάσχειν,act. perfectum
+πείσομαι (2),πείθεσθαι,med. futurum
+ἐπιθόμην,πείθεσθαι,med. aorist
+πέποιθα,πείθεσθαι,med. perfectum
+πεύσομαι,πυνθάνεσθαι,dep. futurum
+ἐπυθόμην,πυνθάνεσθαι,dep. aorist
+πέπυσμαι,πυνθάνεσθαι,dep. perfectum
+τρέψω,τρέπειν,act. futurum
+τρέψομαι,τρέπειν,med. futurum
+τραπήσομαι,τρέπειν,pass. futurum
+ἔτρεψα,τρέπειν,act. aorist (1)
+ἔτραπον,τρέπειν,act. aorist (2)
+ἐτρεψάμην,τρέπειν,med. aorist (1)
+ἐτραπόμην,τρέπειν,med. aorist (2)
+ἐτρέφθην,τρέπειν,pass. aorist (1)
+ἐτράπην,τρέπειν,pass. aorist (2)
+τέτροφα (1),τρέπειν,act. perfectum (1)
+τέτραφα,τρέπειν,act. perfectum (2)
+τέτραμμαι (1),τρέπειν,med. perfectum
+τέτραμμαι (2),τρέπειν,pass. perfectum
+θρέψω,τρέφειν,act. futurum
+θρέψομαι,τρέφειν,pass. futurum
+ἔθρεψα,τρέφειν,act. aorist
+ἐτράφην,τρέφειν,pass. aorist
+τέτροφα (2),τρέφειν,act. perfectum
+τέθραμμαι,τρέφειν,pass. perfectum
+δραμοῦμαι,τρέχειν,sem.-dep. futurum
+ἔδραμον,τρέχειν,act. aorist
+δεδράμηκα,τρέχειν,act. perfectum
+τεύξομαι,τυγχάνειν,sem.-dep. futurum
+ἔτυχον,τυγχάνειν,act. aorist
+τετύχηκα,τυγχάνειν,act. perfectum
+φανῶ,φαίνειν,act. futurum
+ἔφηνα,φαίνειν,act. aorist
+ἐφάνθην,φαίνειν,pass. aorist
+πέφαγκα,φαίνειν,act. perfectum
+πέφασμαι (1),φαίνειν,pass. perfectum
+φανήσομαι,φαίνεσθαι,med. futurum (1)
+φανοῦμαι,φαίνεσθαι,med. futurum (2)
+ἐφηνάμην,φαίνεσθαι,med. aorist (1)
+ἐφάνην,φαίνεσθαι,med. aorist (2)
+πέφασμαι (2),φαίνεσθαι,med. perfectum (1)
+πέφηνα,φαίνεσθαι,med. perfectum (2)
+oἴσω,φέρειν,act. futurum
+oἴσομαι,φέρειν,med. futurum
+ἐνεχθήσομαι,φέρειν,pass. futurum
+ἤνεγκον,φέρειν,act. aorist (1)
+ἤνεγκα,φέρειν,act. aorist (2)
+ἠνεγκάμην,φέρειν,med. aorist
+ἠνέχθην,φέρειν,pass. aorist
+ἐνήνοχα,φέρειν,act. perfectum
+ἐνήνεγμαι (1),φέρειν,med. perfectum
+ἐνήνεγμαι (2),φέρειν,pass. perfectum
+STAMTIJDEN,,
+ᾄσομαι,ᾄδειν,sem.-dep. futurum
+ᾀσθήσομαι,ᾄδειν,pass. futurum
+ᾔσα,ᾄδειν,act. aorist
+ᾔσθην,ᾄδειν,pass. aorist
+ᾖσμαι,ᾄδειν,pass. perfectum
+αἰσθήσομαι,αἰσθάνεσθαι,dep. futurum
+ᾐσθομην,αἰσθάνεσθαι,dep. aorist
+ᾐσθημαι,αἰσθάνεσθαι,dep. perfectum
+ἀκούσομαι,ἀκούειν,sem.-dep. futurum
+ἀκουσθήσομαι,ἀκούειν,pass. futurum
+ἤκουσα,ἀκούειν,act. aorist
+ἠκούσθην,ἀκούειν,pass. aorist
+ἀκήκοα,ἀκούειν,act. perfectum
+ἤκουσμαι,ἀκούειν,pass. perfectum
+ἁλώσομαι,ἁλίσκεσθαι,dep. futurum
+ἑάλων,ἁλίσκεσθαι,dep. aorist (1)
+ἥλων,ἁλίσκεσθαι,dep. aorist (2)
+ἑάλωκα,ἁλίσκεσθαι,dep. perfectum (1)
+ἥλωκα,ἁλίσκεσθαι,dep. perfectum (2)
+ἀποκρινοῦμαι,ἀποκρίνεσθαι,dep. futurum
+ἀπεκρινάμην,ἀποκρίνεσθαι,dep. aorist
+ἀποκέκριμαι,ἀποκρίνεσθαι,dep. perfectum
+βαλῶ,βάλλειν,act. futurum
+βληθήσομαι,βάλλειν,pass. futurum
+ἔβαλον,βάλλειν,act. aorist
+ἐβλήθην,βάλλειν,pass. aorist
+βέβληκα,βάλλειν,act. perfectum
+βέβλημαι,βάλλειν,pass. perfectum
+βλάψω,βλάπτειν,act. futurum
+βλαβήσομαι,βλάπτειν,pass. futurum
+ἔβλαψα,βλάπτειν,act. aorist
+ἐβλάβην,βλάπτειν,pass. aorist
+βέβλαφα,βλάπτειν,act. perfectum
+βέβλαμμαι,βλάπτειν,pass. perfectum
+γράψω,γράφειν,act. futurum
+γραφήσομαι,γράφειν,pass. futurum
+ἔγραψα,γράφειν,act. aorist
+ἐγράφην,γράφειν,pass. aorist
+γέγραφα,γράφειν,act. perfectum
+γέγραμμαι,γράφειν,pass. perfectum
+δείσομαι,δείδειν,sem.-dep. futurum
+ἔδεισα,δείδειν,act. aorist
+δέδοικα,δείδειν,act. perfectum (1)
+δέδια,δείδειν,act. perfectum (2)
+δείξω,δεικνύναι,act. futurum
+δείξομαι,δεικνύναι,med. futurum
+δειχθήσομαι,δεικνύναι,pass. futurum
+ἔδειξα,δεικνύναι,act. aorist
+ἐδειξάμην,δεικνύναι,med. aorist
+ἐδείχθην,δεικνύναι,pass. aorist
+δέδειχα,δεικνύναι,act. perfectum
+δέδειγμαι (1),δεικνύναι,med. perfectum
+δέδειγμαι (2),δεικνύναι,pass. perfectum
+δεήσομαι,δεῖσθαι,dep. futurum
+ἐδεήθην,δεῖσθαι,dep. aorist
+δεδέημαι,δεῖσθαι,dep. perfectum
+διδάξω,διδάσκειν,act. futurum
+διδαχθήσομαι,διδάσκειν,pass. futurum
+ἐδίδαξα,διδάσκειν,act. aorist
+ἐδιδάχθην,διδάσκειν,pass. aorist
+δεδίδαχα,διδάσκειν,act. perfectum
+δεδίδαγμαι,διδάσκειν,pass. perfectum
+δώσω,διδόναι,act. futurum
+δώσομαι,διδόναι,med. futurum
+δοθήσομαι,διδόναι,pass. futurum
+ἔδωκα,διδόναι,act. aorist
+ἐδόμην,διδόναι,med. aorist
+ἐδόθην,διδόναι,pass. aorist
+δέδωκα,διδόναι,act. perfectum
+δέδομαι (1),διδόναι,med. perfectum
+δέδομαι (2),διδόναι,pass. perfectum
+δόξω,δοκεῖν,act. futurum
+ἔδοξα,δοκεῖν,act. aorist
+ἐδόχθην,δοκεῖν,pass. aorist
+δεδόκηκα,δοκεῖν,act. perfectum (1)
+δέδοχα,δοκεῖν,act. perfectum (2)
+δέδογμαι,δοκεῖν,pass. perfectum
+δύσομαι,δύεσθαι,dep. futurum
+ἔδυν,δύεσθαι,dep. aorist
+δέδυκα,δύεσθαι,dep. perfectum
+ἐλῶ,ἐλαύνειν,act. futurum
+ἐλαθήσομαι,ἐλαύνειν,pass. futurum (1)
+ἐλασθήσομαι,ἐλαύνειν,pass. futurum (2)
+ἤλασα,ἐλαύνειν,act. aorist
+ἠλάθην,ἐλαύνειν,pass. aorist (1)
+ἠλάσθην,ἐλαύνειν,pass. aorist (2)
+ἐλήλακα,ἐλαύνειν,act. perfectum
+ἐλήλαμαι,ἐλαύνειν,pass. perfectum
+ἕψομαι,ἕπεσθαι,dep. futurum
+ἑσπόμην,ἕπεσθαι,dep. aorist
+ἡσθήσομαι,ἥδεσθαι,dep. futurum
+ἥσθην,ἥδεσθαι,dep. aorist
+ἥσω,ἱέναι,act. futurum
+ἥσομαι,ἱέναι,med. futurum
+ἑθήσομαι,ἱέναι,pass. futurum
+ἧκα,ἱέναι,act. aorist
+εἵμην,ἱέναι,med. aorist
+εἵθην,ἱέναι,pass. aorist
+εἷκα,ἱέναι,act. perfectum
+εἷμαι (1),ἱέναι,med. perfectum
+εἷμαι (2),ἱέναι,pass. perfectum
+καλῶ (1),καλεῖν,act. praesens
+καλῶ (2),καλεῖν,act. futurum
+κληθήσομαι,καλεῖν,pass. futurum
+ἐκάλεσα,καλεῖν,act. aorist
+ἐκλήθην,καλεῖν,pass. aorist
+κέκληκα,καλεῖν,act. perfectum
+κέκλημαι,καλεῖν,pass. perfectum
+κλέψω,κλέπτειν,act. futurum
+κλέψομαι,κλέπτειν,sem.-dep. futurum
+ἔκλεψα,κλέπτειν,act. aorist
+ἔκλαπην,κλέπτειν,pass. aorist
+κέκλοφα,κλέπτειν,act. perfectum
+κέκλεμμαι,κλέπτειν,pass. perfectum
+κρινῶ,κρίνειν,act. futurum
+κριθήσομαι,κρίνειν,pass. futurum
+ἔκρινα,κρίνειν,act. aorist
+ἐκρίθην,κρίνειν,pass. aorist
+κέκρικα,κρίνειν,act. perfectum
+κέκριμαι,κρίνειν,pass. perfectum
+μαχοῦμαι,μάχεσθαι,dep. futurum
+ἐμαχεσάμην,μάχεσθαι,dep. aorist
+μεμάχημαι,μάχεσθαι,dep. perfectum
+μενῶ,μένειν,act. futurum
+ἔμεινα,μένειν,act. aorist
+μεμένηκα,μένειν,act. perfectum
+μνησθήσομαι,μιμνῄσκεσθαι,dep. futurum
+ἐμνήσθην,μιμνῄσκεσθαι,dep. aorist
+μέμνημαι,μιμνῄσκεσθαι,dep. perfectum
+ἀπολῶ,ἀπολλύναι,act. futurum
+ἀπώλεσα,ἀπολλύναι,act. aorist
+ἀπολώλεκα,ἀπολλύναι,act. perfectum
+ἀπολοῦμαι,ἀπόλλυσθαι,med. futurum
+ἀπωλόμην,ἀπόλλυσθαι,med. aorist
+ἀπόλωλα,ἀπόλλυσθαι,med. perfectum
+ὀμοῦμαι,ὀμνύναι,sem.-dep. futurum
+ὤμοσα,ὀμνύναι,act. aorist
+ὀμώμοκα,ὀμνύναι,act. perfectum
+ὀφειλήσω,ὀφείλειν,act. futurum
+ὠφείλησα,ὀφείλειν,act. aorist (1)
+ὤφελον,ὀφείλειν,act. aorist (2)
+ὠφείληκα,ὀφείλειν,act. perfectum
+πέμψω,πέμπειν,act. futurum
+πεμφθήσομαι,πέμπειν,pass. futurum
+ἔπεμψα,πέμπειν,act. aorist
+ἐπέμφθην,πέμπειν,pass. aorist
+πέπομφα,πέμπειν,act. perfectum
+πέπεμμαι,πέμπειν,pass. perfectum
+πίομαι,πίνειν,sem.-dep. futurum
+ποθήσομαι,πίνειν,pass. futurum
+ἔπιον,πίνειν,act. aorist
+ἐπόθην,πίνειν,pass. aorist
+πέπωκα,πίνειν,act. perfectum
+πέπομαι,πίνειν,pass. perfectum
+πεσοῦμαι,πίπτειν,sem.-dep. futurum
+ἔπεσον,πίπτειν,act. aorist
+πέπτωκα,πίπτειν,act. perfectum
+πράξω,πράττειν,act. futurum
+πραχθήσομαι,πράττειν,pass. futurum
+ἔπραξα,πράττειν,act. aorist
+ἐπράχθην,πράττειν,pass. aorist
+πέπραχα,πράττειν,act. perfectum
+πέπραγμαι,πράττειν,pass. perfectum
+στελῶ,στέλλειν,act. futurum
+σταλήσομαι,στέλλειν,pass. futurum
+ἔστειλα,στέλλειν,act. aorist
+ἐστάλην,στέλλειν,pass. aorist
+ἔσταλκα,στέλλειν,act. perfectum
+ἔσταλμαι,στέλλειν,pass. perfectum
+στρέψω,στρέφειν,act. futurum
+στραφήσομαι,στρέφειν,pass. futurum
+ἔστρεψα,στρέφειν,act. aorist
+ἐστράφην,στρέφειν,pass. aorist
+ἔστροφα,στρέφειν,act. perfectum
+ἔστραμμαι,στρέφειν,pass. perfectum
+τάξω,τάττειν,act. futurum
+ταχθήσομαι,τάττειν,pass. futurum
+ἔταξα,τάττειν,act. aorist
+ἐτάχθην,τάττειν,pass. aorist
+τέταχα,τάττειν,act. perfectum
+τέταγμαι,τάττειν,pass. perfectum
+τελῶ,τελεῖν,act. futurum
+τελεσθήσομαι,τελεῖν,pass. futurum
+ἐτέλεσα,τελεῖν,act. aorist
+ἐτελέσθην,τελεῖν,pass. aorist
+τετέλεκα,τελεῖν,act. perfectum
+τετέλεσμαι,τελεῖν,pass. perfectum
+θήσω,τιθέναι,act. futurum
+θήσομαι,τιθέναι,med. futurum
+τεθήσομαι,τιθέναι,pass. futurum
+ἔθηκα,τιθέναι,act. aorist
+ἐθέμην,τιθέναι,med. aorist
+ἐτέθην,τιθέναι,pass. aorist
+τέθηκα,τιθέναι,act. perfectum
+τέθειμαι (1),τιθέναι,med. perfectum
+τέθειμαι (2),τιθέναι,pass. perfectum
+τέξομαι,τίκτειν,sem.-dep. futurum
+ἔτεκον,τίκτειν,act. aorist
+τέτοκα,τίκτειν,act. perfectum
+ὑποσχήσομαι,ὑπισχνεῖσθαι,dep. futurum
+ὑπεσχόμην,ὑπισχνεῖσθαι,dep. aorist
+ὑπέσχημαι,ὑπισχνεῖσθαι,dep. perfectum
+φεύξομαι,φεύγειν,sem.-dep. futurum
+ἔφυγον,φεύγειν,act. aorist
+πέφευγα,φεύγειν,act. perfectum
+διαφθερῶ,διαφθείρειν,act. futurum
+διαφθαρήσομαι,διαφθείρειν,pass. futurum
+διέφθειρα,διαφθείρειν,act. aorist
+διεφθάρην,διαφθείρειν,pass. aorist
+διέφθαρκα,διαφθείρειν,act. perfectum
+διέφθαρμαι,διαφθείρειν,pass. perfectum
+φύσομαι,φύεσθαι,dep. futurum
+ἔφυν,φύεσθαι,dep. aorist
+πέφυκα,φύεσθαι,act. perfectum
+χαιρήσω,χαίρειν,act. futurum
+ἐχάρην,χαίρειν,act. aorist
+κεχάρηκα,χαίρειν,act. perfectum
