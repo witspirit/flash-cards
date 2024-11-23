@@ -2,5 +2,10 @@
 <project version="4">
   <component name="SonarLintProjectSettings">
     <option name="bindingSuggestionsEnabled" value="false" />
+    <option name="fileExclusions">
+      <list>
+        <option value="GLOB:**/*" />
+      </list>
+    </option>
   </component>
 </project>
