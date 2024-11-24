@@ -1,6 +1,6 @@
 import {Deck, FlashCard} from "./types.ts";
 import _ from 'underscore';
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {Box, Button, List, ListItem, ListItemText} from "@mui/material";
 
 interface TrainingProps {
@@ -11,7 +11,7 @@ interface TrainingProps {
 }
 
 export const Training = ({deck, front, onRight, onWrong}: TrainingProps) => {
-    const shuffledCards = _.shuffle(deck.cards)
+    const shuffledCards = useMemo(() => _.shuffle(deck.cards), [deck.cards])
 
     const [cardIndex, setCardIndex] = useState(0)
     const [face, setFace] = useState<'front' | 'back' | 'done'>('front')
@@ -53,7 +53,13 @@ export const Training = ({deck, front, onRight, onWrong}: TrainingProps) => {
 
     if (face === 'front') {
         return <Box>
-            <Box>{frontWord}</Box>
+            <Box>
+                <List>
+                    <ListItem>
+                        <ListItemText>{frontWord}</ListItemText>
+                    </ListItem>
+                </List>
+            </Box>
             <Button onClick={reveal}>Reveal</Button>
         </Box>
     }
@@ -61,7 +67,9 @@ export const Training = ({deck, front, onRight, onWrong}: TrainingProps) => {
     return <Box>
         <Box>
             <List>
-                {backWords.map(w => <ListItem key={w}><ListItemText>{w}</ListItemText></ListItem>)}
+                {backWords.map(w =>
+                    <ListItem key={w}><ListItemText>{w}</ListItemText></ListItem>
+                )}
             </List>
         </Box>
         <Button onClick={right}>Right</Button>
