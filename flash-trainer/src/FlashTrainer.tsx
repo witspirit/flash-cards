@@ -3,7 +3,7 @@ import {useState} from "react";
 import {FileSelector} from "./FileSelector.tsx";
 import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
 import {Deck, FlashCard} from "./types.ts";
-import {CsvResultList} from "./CsvResultList.tsx";
+import {Training} from "./Training.tsx";
 
 const toDeck = (parseResult: ParseResult<FlashCard>) : Deck => {
     return {
@@ -28,6 +28,14 @@ export const FlashTrainer = () => {
         })
     }
 
+    const handleRight = (card: FlashCard) => {
+        console.log(`Right: ${card}`)
+    }
+
+    const handleWrong = (card: FlashCard) => {
+        console.log(`Wrong: ${card}`)
+    }
+
     const handleCsvDownload = () => {
         console.log('handleCsvDownload');
     }
@@ -40,7 +48,10 @@ export const FlashTrainer = () => {
             </Toolbar>
         </AppBar>
         <Box sx={{flexGrow: 1, overflow: 'scroll'}}>
-            {deck ? <CsvResultList deck={deck}/> :
+            {deck ?
+                // <CsvResultList deck={deck}/>
+                <Training deck={deck} front={deck.elements[0]} onRight={handleRight} onWrong={handleWrong}/>
+                :
                 <Box sx={{height: '100%', textAlign: 'center', alignContent: 'center'}}><Typography variant={'h3'}>No
                     flash cards loaded</Typography></Box>}
         </Box>
