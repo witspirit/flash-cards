@@ -2,21 +2,29 @@ import Papa, {ParseResult} from "papaparse";
 import {useState} from "react";
 import {FileSelector} from "./FileSelector.tsx";
 import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
-import {FlashCard} from "./types.ts";
+import {Deck, FlashCard} from "./types.ts";
 import {CsvResultList} from "./CsvResultList.tsx";
+
+const toDeck = (parseResult: ParseResult<FlashCard>) : Deck => {
+    return {
+        elements: parseResult.meta.fields || ['front', 'back'], // This front/back should never happen. We are not equipped to deal with that scenario.
+        cards: parseResult.data
+    }
+}
 
 export const FlashTrainer = () => {
 
-    const [csvData, setCsvData] = useState<ParseResult<FlashCard> | undefined>(undefined)
+    const [deck, setDeck] = useState<Deck | undefined>(undefined)
 
-    const handleCsvData = (csvResults: ParseResult<FlashCard>) => {
-        setCsvData(csvResults)
+    const handleCsvParseResult = (csvResults: ParseResult<FlashCard>) => {
+        setDeck(toDeck(csvResults))
     }
 
-    const handleCsvUpload = (selectedFile: File) => {
+    const handleFileSelected = (selectedFile: File) => {
         Papa.parse<FlashCard>(selectedFile, {
             header: true,
-            complete: handleCsvData
+            skipEmptyLines: true,
+            complete: handleCsvParseResult
         })
     }
 
@@ -28,11 +36,11 @@ export const FlashTrainer = () => {
         <AppBar position={'static'}>
             <Toolbar>
                 <Typography variant={'h6'} sx={{flexGrow: 1}}>FlashCard Trainer</Typography>
-                <FileSelector onFileSelected={handleCsvUpload}/>
+                <FileSelector onFileSelected={handleFileSelected}/>
             </Toolbar>
         </AppBar>
         <Box sx={{flexGrow: 1, overflow: 'scroll'}}>
-            {csvData ? <CsvResultList csvResult={csvData}/> :
+            {deck ? <CsvResultList deck={deck}/> :
                 <Box sx={{height: '100%', textAlign: 'center', alignContent: 'center'}}><Typography variant={'h3'}>No
                     flash cards loaded</Typography></Box>}
         </Box>

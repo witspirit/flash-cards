@@ -1,30 +1,29 @@
-import {ParseResult} from "papaparse";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
-import {FlashCard} from "./types.ts";
+import {Deck} from "./types.ts";
 
 interface CsvResultListProps {
-    csvResult: ParseResult<FlashCard>
+    deck: Deck
 }
 
-export const CsvResultList = ({csvResult}: CsvResultListProps) => {
-    const fieldNames = csvResult.meta.fields || ['front', 'back']
+export const CsvResultList = ({deck}: CsvResultListProps) => {
+    const elements = deck.elements
 
-    const rows = csvResult.data
+    const cards = deck.cards
 
     return <TableContainer sx={{maxHeight: '100%'}}>
         <Table stickyHeader={true}>
             <TableHead>
                 <TableRow>
-                    {fieldNames.map(fieldName =>
+                    {elements.map(fieldName =>
                         <TableCell key={fieldName}><Typography
                             fontWeight={'fontWeightBold'}>{fieldName}</Typography></TableCell>
                     )}
                 </TableRow>
             </TableHead>
             <TableBody>
-                {rows.map((r, i) =>
+                {cards.map((r, i) =>
                     <TableRow key={i}>
-                        {fieldNames.map(fieldName =>
+                        {elements.map(fieldName =>
                             <TableCell key={fieldName}>{r[fieldName]}</TableCell>
                         )}
                     </TableRow>
