@@ -1,25 +1,36 @@
-import {Deck, FlashCard} from "./types.ts";
+import {Deck, deckUtil, FlashCard} from "./types.ts";
 import _ from 'underscore';
-import {useMemo, useState} from "react";
-import {Box, Button, List, ListItem, ListItemText} from "@mui/material";
+import {useState} from "react";
+import {Box, Button, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {CsvResultList} from "./CsvResultList.tsx";
 
 interface TrainingProps {
     deck: Deck
     front: string
-    onRight: (card: FlashCard) => void
-    onWrong: (card: FlashCard) => void
+    onExit: () => void
 }
 
-export const Training = ({deck, front, onRight, onWrong}: TrainingProps) => {
-    const shuffledCards = useMemo(() => _.shuffle(deck.cards), [deck.cards])
+export const Training = ({deck, front, onExit}: TrainingProps) => {
 
+    const [shuffledCards, setShuffledCards] = useState<FlashCard[]>(_.shuffle(deck.cards))
     const [cardIndex, setCardIndex] = useState(0)
     const [face, setFace] = useState<'front' | 'back' | 'done'>('front')
+    const [rightDeck, setRightDeck] = useState<Deck>(deckUtil.empty(deck))
+    const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck))
+    const [displayDeck, setDisplayDeck] = useState<Deck | undefined>(undefined)
 
     const currentCard = shuffledCards[cardIndex]
 
     const frontWord = currentCard[front] || '!MISSING!'
     const backWords = deck.elements.filter(e => e != front).map(e => currentCard[e] || '!MISSING!')
+
+    const reset = () => {
+        setShuffledCards(_.shuffle(deck.cards))
+        setCardIndex(0)
+        setFace('front')
+        setRightDeck(deckUtil.empty(deck))
+        setWrongDeck(deckUtil.empty(deck))
+    }
 
     const reveal = () => {
         setFace('back')
@@ -36,18 +47,47 @@ export const Training = ({deck, front, onRight, onWrong}: TrainingProps) => {
     }
 
     const right = () => {
-        onRight(currentCard)
+        setRightDeck(deckUtil.addCard(rightDeck, currentCard))
         next()
     }
 
     const wrong = () => {
-        onWrong(currentCard)
+        setWrongDeck(deckUtil.addCard(wrongDeck, currentCard))
         next()
     }
 
+    const show = (deck: Deck) => {
+        setDisplayDeck(deck)
+    }
+
+    const hideList = () => {
+        setDisplayDeck(undefined)
+    }
+
+    if (displayDeck) {
+        return <CsvResultList deck={displayDeck} onClose={hideList}/>
+    }
+
+
     if (face == 'done') {
         return <Box>
-            Done!
+            <Box>
+                <List>
+                    <ListItem>
+                        <ListItemText>Done !</ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>You had {rightDeck.cards.length} cards right.</ListItemText>
+                        <ListItemButton onClick={() => show(rightDeck)}>Show</ListItemButton>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>You had {wrongDeck.cards.length} cards wrong.</ListItemText>
+                        <ListItemButton onClick={() => show(wrongDeck)}>Show</ListItemButton>
+                    </ListItem>
+                </List>
+            </Box>
+            <Button onClick={reset}>Reset and go again</Button>
+            <Button onClick={onExit}>End training</Button>
         </Box>
     }
 

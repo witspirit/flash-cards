@@ -31,16 +31,12 @@ export const FlashTrainer = () => {
         })
     }
 
-    const handleRight = (card: FlashCard) => {
-        console.log(`Right: ${JSON.stringify(card)}`)
-    }
-
-    const handleWrong = (card: FlashCard) => {
-        console.log(`Wrong: ${JSON.stringify(card)}`)
-    }
-
     const handleCsvDownload = () => {
-        console.log('handleCsvDownload');
+        console.log('handleCsvDownload')
+    }
+
+    const exitTraining = () => {
+        console.log('exit training')
     }
 
     return <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
@@ -53,7 +49,7 @@ export const FlashTrainer = () => {
         <Box sx={{flexGrow: 1, overflow: 'scroll'}}>
             {deck ?
                 // <CsvResultList deck={deck}/>
-                <Training key={trainingId} deck={deck} front={deck.elements[0]} onRight={handleRight} onWrong={handleWrong}/>
+                <Training key={trainingId} deck={deck} front={deck.elements[0]} onExit={exitTraining}/>
                 :
                 <Box sx={{height: '100%', textAlign: 'center', alignContent: 'center'}}><Typography variant={'h3'}>No
                     flash cards loaded</Typography></Box>}
