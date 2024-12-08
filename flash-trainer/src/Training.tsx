@@ -1,10 +1,42 @@
 import {Deck, deckUtil, FlashCard} from "./types.ts";
 import _ from 'underscore';
 import {useState} from "react";
-import {Box, Button} from "@mui/material";
+import {Button, Container, IconButton, Stack, Typography} from "@mui/material";
 import {CsvResultList} from "./CsvResultList.tsx";
 import {TrainingCard} from "./TrainingCard.tsx";
 import {TrainingSummary} from "./TrainingSummary.tsx";
+import {CloseRounded} from "@mui/icons-material";
+
+interface TitleBarProps {
+    title: string
+    onClose: () => void
+}
+
+const TitleBar = ({title, onClose}: TitleBarProps) => {
+    return <Stack direction={"row"} sx={{margin: '10px'}}>
+        <Typography variant={'h5'} sx={{flex: 1}}>{title}</Typography>
+        {onClose && <IconButton onClick={onClose}><CloseRounded/></IconButton>}
+    </Stack>
+}
+
+interface StatusBarProps {
+    rightDeck: Deck
+    wrongDeck: Deck
+    onShow: (deck: Deck) => void
+}
+
+const StatusBar = ({rightDeck, wrongDeck, onShow}: StatusBarProps) => {
+    return <Stack direction={'row'} spacing={'20px'} sx={{width: '100%'}}>
+        <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'success'}
+                onClick={() => onShow(rightDeck)}>
+            {rightDeck.cards.length}
+        </Button>
+        <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'error'}
+                onClick={() => onShow(wrongDeck)}>
+            {wrongDeck.cards.length}
+        </Button>
+    </Stack>
+}
 
 
 interface TrainingProps {
@@ -64,15 +96,16 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
         return <CsvResultList deck={displayDeck} onClose={hideList}/>
     }
 
-    return <Box>
-        <Button onClick={onExit}>End training</Button>
-        {face === 'card' ?
-            <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right} onWrong={wrong}/>
-            :
-            <TrainingSummary rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show} onReset={reset}/>
-        }
-        <Button variant={'contained'} onClick={() => show(rightDeck)}
-                color={'success'}>{rightDeck.cards.length}</Button>
-        <Button variant={'contained'} onClick={() => show(wrongDeck)} color={'error'}>{wrongDeck.cards.length}</Button>
-    </Box>
+    return <Stack sx={{height: '100%'}}>
+        <TitleBar title={`Training ${cardIndex + 1}/${shuffledCards.length}`} onClose={onExit}/>
+        <Container sx={{flex: 1, alignContent: 'center'}}>
+            {face === 'card' ?
+                <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right}
+                              onWrong={wrong}/>
+                :
+                <TrainingSummary rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show} onReset={reset}/>
+            }
+        </Container>
+        <StatusBar rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show}/>
+    </Stack>
 }
