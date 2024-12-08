@@ -1,8 +1,10 @@
 import {Deck, deckUtil, FlashCard} from "./types.ts";
 import _ from 'underscore';
 import {useState} from "react";
-import {Box, Button, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import {CsvResultList} from "./CsvResultList.tsx";
+import {TrainingCard} from "./TrainingCard.tsx";
+import {TrainingStats} from "./TrainingStats.tsx";
 
 interface TrainingProps {
     deck: Deck
@@ -14,26 +16,19 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
 
     const [shuffledCards, setShuffledCards] = useState<FlashCard[]>(_.shuffle(deck.cards))
     const [cardIndex, setCardIndex] = useState(0)
-    const [face, setFace] = useState<'front' | 'back' | 'done'>('front')
+    const [face, setFace] = useState<'card' | 'done'>('card')
     const [rightDeck, setRightDeck] = useState<Deck>(deckUtil.empty(deck))
     const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck))
     const [displayDeck, setDisplayDeck] = useState<Deck | undefined>(undefined)
 
     const currentCard = shuffledCards[cardIndex]
 
-    const frontWord = currentCard[front] || '!MISSING!'
-    const backWords = deck.elements.filter(e => e != front).map(e => currentCard[e] || '!MISSING!')
-
     const reset = () => {
         setShuffledCards(_.shuffle(deck.cards))
         setCardIndex(0)
-        setFace('front')
+        setFace('card')
         setRightDeck(deckUtil.empty(deck))
         setWrongDeck(deckUtil.empty(deck))
-    }
-
-    const reveal = () => {
-        setFace('back')
     }
 
     const next = () => {
@@ -41,7 +36,7 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
         if (nextIndex >= shuffledCards.length) {
             setFace('done')
         } else {
-            setFace('front')
+            setFace('card')
             setCardIndex(nextIndex)
         }
     }
@@ -68,51 +63,12 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
         return <CsvResultList deck={displayDeck} onClose={hideList}/>
     }
 
-
-    if (face == 'done') {
-        return <Box>
-            <Box>
-                <List>
-                    <ListItem>
-                        <ListItemText>Done !</ListItemText>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText>You had {rightDeck.cards.length} cards right.</ListItemText>
-                        <ListItemButton onClick={() => show(rightDeck)}>Show</ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText>You had {wrongDeck.cards.length} cards wrong.</ListItemText>
-                        <ListItemButton onClick={() => show(wrongDeck)}>Show</ListItemButton>
-                    </ListItem>
-                </List>
-            </Box>
-            <Button onClick={reset}>Reset and go again</Button>
-            <Button onClick={onExit}>End training</Button>
-        </Box>
-    }
-
-    if (face === 'front') {
-        return <Box>
-            <Box>
-                <List>
-                    <ListItem>
-                        <ListItemText>{frontWord}</ListItemText>
-                    </ListItem>
-                </List>
-            </Box>
-            <Button onClick={reveal}>Reveal</Button>
-        </Box>
-    }
-
     return <Box>
-        <Box>
-            <List>
-                {backWords.map(w =>
-                    <ListItem key={w}><ListItemText>{w}</ListItemText></ListItem>
-                )}
-            </List>
-        </Box>
-        <Button onClick={right}>Right</Button>
-        <Button onClick={wrong}>Wrong</Button>
+        <Button onClick={onExit}>End training</Button>
+        {face === 'card' ?
+            <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right} onWrong={wrong}/>
+            :
+            <TrainingStats rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show} onReset={reset}/>
+        }
     </Box>
 }
