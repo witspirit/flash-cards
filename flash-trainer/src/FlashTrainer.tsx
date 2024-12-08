@@ -1,10 +1,11 @@
 import Papa, {ParseResult} from "papaparse";
 import {useState} from "react";
 import {FileSelector} from "./FileSelector.tsx";
-import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Toolbar, Typography} from "@mui/material";
 import {Deck, FlashCard} from "./types.ts";
 import {Training} from "./Training.tsx";
 import {nanoid} from "nanoid";
+import {CsvResultList} from "./CsvResultList.tsx";
 
 const toDeck = (parseResult: ParseResult<FlashCard>) : Deck => {
     return {
@@ -13,14 +14,19 @@ const toDeck = (parseResult: ParseResult<FlashCard>) : Deck => {
     }
 }
 
+interface TrainingConfig {
+    key: string,
+    deck: Deck,
+    front: string
+}
+
 export const FlashTrainer = () => {
 
     const [deck, setDeck] = useState<Deck | undefined>(undefined)
-    const [trainingId, setTrainingId] = useState(nanoid())
+    const [training, setTraining] = useState<TrainingConfig | undefined>(undefined)
 
     const handleCsvParseResult = (csvResults: ParseResult<FlashCard>) => {
         setDeck(toDeck(csvResults))
-        setTrainingId(nanoid())
     }
 
     const handleFileSelected = (selectedFile: File) => {
@@ -35,8 +41,16 @@ export const FlashTrainer = () => {
         console.log('handleCsvDownload')
     }
 
+    const startTraining = (term: string) => {
+        setTraining({
+            key: nanoid(),
+            deck: deck!,
+            front: term
+        })
+    }
+
     const exitTraining = () => {
-        console.log('exit training')
+        setTraining(undefined)
     }
 
     return <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
@@ -48,14 +62,12 @@ export const FlashTrainer = () => {
         </AppBar>
         <Box sx={{flexGrow: 1, overflow: 'scroll'}}>
             {deck ?
-                // <CsvResultList deck={deck}/>
-                <Training key={trainingId} deck={deck} front={deck.elements[0]} onExit={exitTraining}/>
+                training ? <Training {...training} onExit={exitTraining}/>
+                    : <CsvResultList deck={deck} onTerm={startTraining}/>
                 :
                 <Box sx={{height: '100%', textAlign: 'center', alignContent: 'center'}}><Typography variant={'h3'}>No
                     flash cards loaded</Typography></Box>}
         </Box>
-
-        <Button onClick={handleCsvDownload}>Download output CSV</Button>
     </Box>
 
 }

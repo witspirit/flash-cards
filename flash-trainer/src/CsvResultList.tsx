@@ -3,16 +3,17 @@ import {Deck} from "./types.ts";
 
 interface CsvResultListProps {
     deck: Deck
-    onClose: () => void
+    onTerm?: (term: string) => void
+    onClose?: () => void
 }
 
-export const CsvResultList = ({deck, onClose}: CsvResultListProps) => {
+export const CsvResultList = ({deck, onTerm, onClose}: CsvResultListProps) => {
     const elements = deck.elements
 
     const cards = deck.cards
 
     return <Box>
-        <Button onClick={onClose}>Close</Button>
+        {onClose && <Button onClick={onClose}>Close</Button>}
         <TableContainer sx={{maxHeight: '100%'}}>
             <Table stickyHeader={true}>
                 <TableHead>
@@ -20,6 +21,7 @@ export const CsvResultList = ({deck, onClose}: CsvResultListProps) => {
                         {elements.map(fieldName =>
                             <TableCell key={fieldName}>
                                 <Typography fontWeight={'fontWeightBold'}>{fieldName}</Typography>
+                                {onTerm && <Button onClick={() => onTerm(fieldName)} >Train</Button>}
                             </TableCell>
                         )}
                     </TableRow>
