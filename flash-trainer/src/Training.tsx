@@ -4,7 +4,7 @@ import {useState} from "react";
 import {Box, Button} from "@mui/material";
 import {CsvResultList} from "./CsvResultList.tsx";
 import {TrainingCard} from "./TrainingCard.tsx";
-import {TrainingStats} from "./TrainingStats.tsx";
+import {TrainingSummary} from "./TrainingSummary.tsx";
 
 interface TrainingProps {
     deck: Deck
@@ -68,7 +68,9 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
         {face === 'card' ?
             <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right} onWrong={wrong}/>
             :
-            <TrainingStats rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show} onReset={reset}/>
+            <TrainingSummary rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show} onReset={reset}/>
         }
+        <Button variant={'contained'} onClick={() => show(rightDeck)} color={'success'}>{rightDeck.cards.length}</Button>
+        <Button variant={'contained'} onClick={() => show(wrongDeck)} color={'error'}>{wrongDeck.cards.length}</Button>
     </Box>
 }

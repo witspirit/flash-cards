@@ -1,14 +1,14 @@
 import {Deck} from "./types.ts";
 import {Box, Button, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 
-interface TrainingStatsProps {
+interface TrainingSummaryProps {
     rightDeck: Deck
     wrongDeck: Deck
     onShow: (deck: Deck) => void
     onReset: () => void
 }
 
-export const TrainingStats = ({rightDeck, wrongDeck, onShow, onReset}: TrainingStatsProps) => {
+export const TrainingSummary = ({rightDeck, wrongDeck, onShow, onReset}: TrainingSummaryProps) => {
 
     return <Box>
         <Box>
