@@ -47,7 +47,7 @@ export const FlashTrainer = () => {
         <Box sx={{flexGrow: 1, overflow: 'scroll'}}>
             {deck ?
                 training ? <Training {...training} onExit={exitTraining}/>
-                    : <CsvResultList deck={deck} onTerm={startTraining}/>
+                    : <CsvResultList deck={deck} onTrain={startTraining}/>
                 :
                 <Box sx={{height: '100%', textAlign: 'center', alignContent: 'center'}}><Typography variant={'h3'}>No
                     flash cards loaded</Typography></Box>}
