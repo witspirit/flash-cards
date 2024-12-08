@@ -27,6 +27,7 @@ export const FlashTrainer = () => {
 
     const handleCsvParseResult = (csvResults: ParseResult<FlashCard>) => {
         setDeck(toDeck(csvResults))
+        setTraining(undefined)
     }
 
     const handleFileSelected = (selectedFile: File) => {
