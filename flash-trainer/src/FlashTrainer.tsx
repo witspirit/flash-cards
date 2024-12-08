@@ -1,18 +1,11 @@
-import Papa, {ParseResult} from "papaparse";
 import {useState} from "react";
 import {FileSelector} from "./FileSelector.tsx";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
-import {Deck, FlashCard} from "./types.ts";
+import {Deck} from "./types.ts";
 import {Training} from "./Training.tsx";
 import {nanoid} from "nanoid";
 import {CsvResultList} from "./CsvResultList.tsx";
-
-const toDeck = (parseResult: ParseResult<FlashCard>) : Deck => {
-    return {
-        elements: parseResult.meta.fields || ['front', 'back'], // This front/back should never happen. We are not equipped to deal with that scenario.
-        cards: parseResult.data
-    }
-}
+import {csvTools} from "./csvTools.ts";
 
 interface TrainingConfig {
     key: string,
@@ -25,21 +18,11 @@ export const FlashTrainer = () => {
     const [deck, setDeck] = useState<Deck | undefined>(undefined)
     const [training, setTraining] = useState<TrainingConfig | undefined>(undefined)
 
-    const handleCsvParseResult = (csvResults: ParseResult<FlashCard>) => {
-        setDeck(toDeck(csvResults))
-        setTraining(undefined)
-    }
-
     const handleFileSelected = (selectedFile: File) => {
-        Papa.parse<FlashCard>(selectedFile, {
-            header: true,
-            skipEmptyLines: true,
-            complete: handleCsvParseResult
+        csvTools.loadDeckFromCsv(selectedFile, (deck) => {
+            setDeck(deck)
+            setTraining(undefined)
         })
-    }
-
-    const handleCsvDownload = () => {
-        console.log('handleCsvDownload')
     }
 
     const startTraining = (term: string) => {

@@ -3,12 +3,17 @@ export interface FlashCard {
 }
 
 export interface Deck {
+    name: string
     elements: string[]
     cards: FlashCard[]
 }
 
-const empty = (refDeck: Deck) : Deck => ({ elements: refDeck.elements, cards: []})
-const addCard = (deck: Deck, card: FlashCard): Deck => ({ ...deck, cards: [...deck.cards, card]})
+const empty = (refDeck: Deck, newName?: string): Deck => ({
+    name: newName ?? refDeck.name,
+    elements: refDeck.elements,
+    cards: []
+})
+const addCard = (deck: Deck, card: FlashCard): Deck => ({...deck, cards: [...deck.cards, card]})
 
 export const deckUtil = {
     empty,

@@ -1,5 +1,6 @@
 import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import {Deck} from "./types.ts";
+import {csvTools} from "./csvTools.ts";
 
 interface CsvResultListProps {
     deck: Deck
@@ -12,8 +13,13 @@ export const CsvResultList = ({deck, onTerm, onClose}: CsvResultListProps) => {
 
     const cards = deck.cards
 
+    const download = () => {
+        csvTools.downloadDeck(deck)
+    }
+
     return <Box>
         {onClose && <Button onClick={onClose}>Close</Button>}
+        <Button onClick={download}>Download</Button>
         <TableContainer sx={{maxHeight: '100%'}}>
             <Table stickyHeader={true}>
                 <TableHead>

@@ -6,6 +6,7 @@ import {CsvResultList} from "./CsvResultList.tsx";
 import {TrainingCard} from "./TrainingCard.tsx";
 import {TrainingSummary} from "./TrainingSummary.tsx";
 
+
 interface TrainingProps {
     deck: Deck
     front: string
@@ -17,8 +18,8 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
     const [shuffledCards, setShuffledCards] = useState<FlashCard[]>(_.shuffle(deck.cards))
     const [cardIndex, setCardIndex] = useState(0)
     const [face, setFace] = useState<'card' | 'done'>('card')
-    const [rightDeck, setRightDeck] = useState<Deck>(deckUtil.empty(deck))
-    const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck))
+    const [rightDeck, setRightDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-correct`))
+    const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-wrong`))
     const [displayDeck, setDisplayDeck] = useState<Deck | undefined>(undefined)
 
     const currentCard = shuffledCards[cardIndex]
@@ -70,7 +71,8 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
             :
             <TrainingSummary rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show} onReset={reset}/>
         }
-        <Button variant={'contained'} onClick={() => show(rightDeck)} color={'success'}>{rightDeck.cards.length}</Button>
+        <Button variant={'contained'} onClick={() => show(rightDeck)}
+                color={'success'}>{rightDeck.cards.length}</Button>
         <Button variant={'contained'} onClick={() => show(wrongDeck)} color={'error'}>{wrongDeck.cards.length}</Button>
     </Box>
 }
