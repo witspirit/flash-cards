@@ -1,5 +1,5 @@
 import {Deck} from "./types.ts";
-import {Box, Button, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {Button, Card, CardActions, CardContent, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 
 interface TrainingSummaryProps {
     rightDeck: Deck
@@ -10,8 +10,8 @@ interface TrainingSummaryProps {
 
 export const TrainingSummary = ({rightDeck, wrongDeck, onShow, onReset}: TrainingSummaryProps) => {
 
-    return <Box>
-        <Box>
+    return <Card>
+        <CardContent>
             <List>
                 <ListItem>
                     <ListItemText>Done !</ListItemText>
@@ -25,8 +25,10 @@ export const TrainingSummary = ({rightDeck, wrongDeck, onShow, onReset}: Trainin
                     <ListItemButton onClick={() => onShow(wrongDeck)}>Show</ListItemButton>
                 </ListItem>
             </List>
-        </Box>
-        <Button onClick={onReset}>Reset and go again</Button>
-    </Box>
+        </CardContent>
+        <CardActions>
+            <Button onClick={onReset}>Reset and go again</Button>
+        </CardActions>
+    </Card>
 
 }

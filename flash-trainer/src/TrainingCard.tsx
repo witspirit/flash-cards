@@ -1,6 +1,6 @@
 import {FlashCard} from "./types.ts";
 import {useState} from "react";
-import {Box, Button, List, ListItem, ListItemText} from "@mui/material";
+import {Button, Card, CardActions, CardContent, List, ListItem, ListItemText} from "@mui/material";
 
 interface TrainingCardProps {
     card: FlashCard
@@ -21,27 +21,33 @@ export const TrainingCard = ({card, front, onRight, onWrong}: TrainingCardProps)
     }
 
     if (face === 'front') {
-        return <Box>
-            <Box>
+        return <Card sx={{minHeight: '50%'}}>
+            <CardContent sx={{flex: 1}}>
                 <List>
                     <ListItem>
-                        <ListItemText>{frontWord}</ListItemText>
+                        <ListItemText sx={{textAlign: 'center'}}>{frontWord}</ListItemText>
                     </ListItem>
                 </List>
-            </Box>
-            <Button onClick={reveal}>Reveal</Button>
-        </Box>
+            </CardContent>
+            <CardActions sx={{justifyContent: 'center'}}>
+                <Button onClick={reveal} color={'primary'} variant={'contained'}>Reveal</Button>
+            </CardActions>
+        </Card>
     }
 
-    return <Box>
-        <Box>
+    return <Card sx={{minHeight: '50%'}}>
+        <CardContent sx={{flex: 1}}>
             <List>
                 {backWords.map(w =>
-                    <ListItem key={w}><ListItemText>{w}</ListItemText></ListItem>
+                    <ListItem key={w}>
+                        <ListItemText sx={{textAlign: 'center'}}>{w}</ListItemText>
+                    </ListItem>
                 )}
             </List>
-        </Box>
-        <Button onClick={onRight}>Right</Button>
-        <Button onClick={onWrong}>Wrong</Button>
-    </Box>
+        </CardContent>
+        <CardActions sx={{justifyContent: 'center'}}>
+            <Button onClick={onRight} color={'success'} variant={'contained'}>Right</Button>
+            <Button onClick={onWrong} color={'error'} variant={'contained'}>Wrong</Button>
+        </CardActions>
+    </Card>
 }
