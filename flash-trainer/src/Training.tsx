@@ -1,7 +1,7 @@
 import {Deck, deckUtil, FlashCard} from "./types.ts";
 import _ from 'underscore';
 import {useState} from "react";
-import {Button, Container, IconButton, Stack, Typography} from "@mui/material";
+import {Box, Button, Container, IconButton, Stack, Typography} from "@mui/material";
 import {CsvResultList} from "./CsvResultList.tsx";
 import {TrainingCard} from "./TrainingCard.tsx";
 import {TrainingSummary} from "./TrainingSummary.tsx";
@@ -13,10 +13,11 @@ interface TitleBarProps {
 }
 
 const TitleBar = ({title, onClose}: TitleBarProps) => {
-    return <Stack direction={"row"} sx={{margin: '10px'}}>
-        <Typography variant={'h5'} sx={{flex: 1}}>{title}</Typography>
-        {onClose && <IconButton onClick={onClose}><CloseRounded/></IconButton>}
-    </Stack>
+    // I don't understand the positioning system I think... Things just don't seem to naturally align.
+    return <Box sx={{margin: '10px', position: 'relative'}}>
+        <Typography variant={'h5'} sx={{textAlign: 'center'}}>{title}</Typography>
+        {onClose && <IconButton onClick={onClose} sx={{position: 'absolute', top: '-6px', right: '0px'}}><CloseRounded/></IconButton>}
+    </Box>
 }
 
 interface StatusBarProps {
@@ -103,7 +104,7 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
                 <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right}
                               onWrong={wrong}/>
                 :
-                <TrainingSummary rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show} onReset={reset}/>
+                <TrainingSummary rightDeck={rightDeck} wrongDeck={wrongDeck} onReset={reset}/>
             }
         </Container>
         <StatusBar rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show}/>

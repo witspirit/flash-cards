@@ -1,34 +1,20 @@
 import {Deck} from "./types.ts";
-import {Button, Card, CardActions, CardContent, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {Action, CardFace} from "./CardFace.tsx";
 
 interface TrainingSummaryProps {
     rightDeck: Deck
     wrongDeck: Deck
-    onShow: (deck: Deck) => void
     onReset: () => void
 }
 
-export const TrainingSummary = ({rightDeck, wrongDeck, onShow, onReset}: TrainingSummaryProps) => {
+export const TrainingSummary = ({rightDeck, wrongDeck, onReset}: TrainingSummaryProps) => {
+    const words = [
+        'Done !',
+        `You had ${rightDeck.cards.length} cards right.`,
+        `You had ${wrongDeck.cards.length} cards wrong.`
+    ]
+    const actions: Action[] = [{name: 'Reset and go again', trigger: onReset, color: 'primary'}]
 
-    return <Card>
-        <CardContent>
-            <List>
-                <ListItem>
-                    <ListItemText>Done !</ListItemText>
-                </ListItem>
-                <ListItem>
-                    <ListItemText>You had {rightDeck.cards.length} cards right.</ListItemText>
-                    <ListItemButton onClick={() => onShow(rightDeck)}>Show</ListItemButton>
-                </ListItem>
-                <ListItem>
-                    <ListItemText>You had {wrongDeck.cards.length} cards wrong.</ListItemText>
-                    <ListItemButton onClick={() => onShow(wrongDeck)}>Show</ListItemButton>
-                </ListItem>
-            </List>
-        </CardContent>
-        <CardActions>
-            <Button onClick={onReset}>Reset and go again</Button>
-        </CardActions>
-    </Card>
+    return <CardFace words={words} actions={actions} />
 
 }
