@@ -1,6 +1,6 @@
 import {FlashCard} from "./types.ts";
 import {useState} from "react";
-import {Button, Card, CardActions, CardContent, List, ListItem, ListItemText} from "@mui/material";
+import {Action, CardFace} from "./CardFace.tsx";
 
 interface TrainingCardProps {
     card: FlashCard
@@ -20,34 +20,18 @@ export const TrainingCard = ({card, front, onRight, onWrong}: TrainingCardProps)
         setFace('back')
     }
 
+    let words: string[]
+    let actions: Action[]
     if (face === 'front') {
-        return <Card sx={{minHeight: '50%'}}>
-            <CardContent sx={{flex: 1}}>
-                <List>
-                    <ListItem>
-                        <ListItemText sx={{textAlign: 'center'}}>{frontWord}</ListItemText>
-                    </ListItem>
-                </List>
-            </CardContent>
-            <CardActions sx={{justifyContent: 'center'}}>
-                <Button onClick={reveal} color={'primary'} variant={'contained'}>Reveal</Button>
-            </CardActions>
-        </Card>
+        words = [frontWord]
+        actions = [{name: 'Reveal', trigger: reveal, color: 'primary'}]
+    } else {
+        words = backWords
+        actions = [
+            {name: 'Right', trigger: onRight, color: 'success'},
+            {name: 'Wrong', trigger: onWrong, color: 'error'}
+        ]
     }
 
-    return <Card sx={{minHeight: '50%'}}>
-        <CardContent sx={{flex: 1}}>
-            <List>
-                {backWords.map(w =>
-                    <ListItem key={w}>
-                        <ListItemText sx={{textAlign: 'center'}}>{w}</ListItemText>
-                    </ListItem>
-                )}
-            </List>
-        </CardContent>
-        <CardActions sx={{justifyContent: 'center'}}>
-            <Button onClick={onRight} color={'success'} variant={'contained'}>Right</Button>
-            <Button onClick={onWrong} color={'error'} variant={'contained'}>Wrong</Button>
-        </CardActions>
-    </Card>
+    return <CardFace words={words} actions={actions} />
 }
