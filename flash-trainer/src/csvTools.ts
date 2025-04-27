@@ -15,6 +15,7 @@ const loadDeckFromCsv = (csvFile: File, onLoaded: (deck: Deck) => void) => {
     Papa.parse<FlashCard>(csvFile, {
         header: true,
         skipEmptyLines: true,
+        transformHeader: (header: string) => header.trim(),
         transform: (value: string) => value.trim(),
         complete: (csvResults: ParseResult<FlashCard>) => onLoaded(toDeck(name, csvResults))
     })

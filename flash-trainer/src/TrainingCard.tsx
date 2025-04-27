@@ -9,12 +9,22 @@ interface TrainingCardProps {
     onWrong: () => void
 }
 
+const field = (name: string, card: FlashCard) => {
+    let fallback = '!MISSING[' + name + ']!'
+    if (name.startsWith('(')) {
+        // Don't report on optional fields
+        fallback = ''
+    }
+
+    return card[name] || fallback
+}
+
 export const TrainingCard = ({card, front, onRight, onWrong}: TrainingCardProps) => {
 
     const [face, setFace] = useState<'front' | 'back'>('front')
 
-    const frontWord = card[front] || '!MISSING!'
-    const backWords = Object.keys(card).filter(f => f != front).map(f => card[f] || '!MISSING!')
+    const frontWord = field(front, card)
+    const backWords = Object.keys(card).filter(f => f != front).map(f => field(f, card))
 
     const reveal = () => {
         setFace('back')

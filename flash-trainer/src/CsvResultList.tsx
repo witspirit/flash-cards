@@ -21,9 +21,16 @@ interface TrainTermProps {
 }
 
 const TrainTerm = ({term, onTrain}: TrainTermProps) => {
-    // MarginTop 5px is a hack to get the text to center with the icon, experimentally established
+    // MarginTop 5px is a hack to get the text to center with the button icon, experimentally established
     // Issue seems to be tracked via https://github.com/mui/material-ui/issues/19584
-    return <Button variant='contained' color='primary' onClick={() => onTrain(term)} endIcon={<SchoolRounded/>}>
+    if (term.startsWith('(')) {
+        // Optional term should not be considered for training
+        return <Typography sx={{marginTop: '5px'}}>{term}</Typography>
+    }
+
+    return <Button variant='contained' color='primary' onClick={() => {
+        onTrain(term)
+    }} endIcon={<SchoolRounded/>}>
         <Typography sx={{marginTop: '5px'}}>{term}</Typography>
     </Button>
 }
@@ -56,7 +63,7 @@ export const CsvResultList = ({deck, onTrain, onClose}: CsvResultListProps) => {
     const cards = deck.cards
 
     return <Box>
-        <TitleBar deck={deck} onClose={onClose} />
+        <TitleBar deck={deck} onClose={onClose}/>
         <TableContainer sx={{maxHeight: '100%'}}>
             <Table stickyHeader={true}>
                 <TableHead>

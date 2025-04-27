@@ -1,4 +1,5 @@
-Term A,Term B,Term C
-VA_1, VB_1, VC_1
-VA_2, VB_2, VC_2
-VA_3, VB_3, VC_3
+Term A,Term B,Term C, (Optional Term)
+VA 1, VB 1, VC 1, Optional 1
+VA 2, VB 2, VC 2,
+VA 3, VB 3, VC 3, Optional 3
+VA 4, ,VC 4, Optional 4

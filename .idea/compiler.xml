@@ -20,6 +20,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="excel-flashcard-generator" options="-parameters" />
+      <module name="excel-flashcard-generator.aot" options="-parameters" />
+      <module name="excel-flashcard-generator.aotTest" options="-parameters" />
+      <module name="excel-flashcard-generator.main" options="-parameters" />
+      <module name="excel-flashcard-generator.test" options="-parameters" />
       <module name="server" options="-parameters" />
     </option>
   </component>
