@@ -1,3 +1,32 @@
+# Dev
+
+```
+npm run dev
+```
+
+# Build
+
+```
+npm run build
+```
+
+# Deploy
+
+After build, in the /dist folder:
+
+```
+aws s3 sync . s3://flashtrainer.witspirit.be --delete --profile witspirit
+```
+
+Then trigger manual deploy in AWS Amplify from the S3 location
+
+
+
+
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
