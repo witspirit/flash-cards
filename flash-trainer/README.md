@@ -20,6 +20,21 @@ aws s3 sync . s3://flashtrainer.witspirit.be --delete --profile witspirit
 
 Then trigger manual deploy in AWS Amplify from the S3 location
 
+With AWS CLI
+```
+aws amplify start-deployment --app-id d29hdfj41a46b9 --branch-name manual --source-url s3://flashtrainer.witspirit.be --source-url-type BUCKET_PREFIX --profile witspirit
+```
+NOTE: Requires at least AWS CLI 2.18.7 to have the bucket support!
+
+Some supporting commands:
+```
+aws amplify list-apps --profile witspirit
+> Amplify appId = d29hdfj41a46b9
+
+aws amplify list-branches --app-id d29hdfj41a46b9 --profile witspirit
+> Amplify branchName = manual
+```
+
 
 
 
