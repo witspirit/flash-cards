@@ -30,6 +30,10 @@ export const TrainingCard = ({card, front, onRight, onWrong}: TrainingCardProps)
         setFace('back')
     }
 
+    const backToFront = () => {
+        setFace('front')
+    }
+
     let words: string[]
     let actions: Action[]
     if (face === 'front') {
@@ -39,6 +43,7 @@ export const TrainingCard = ({card, front, onRight, onWrong}: TrainingCardProps)
         words = backWords
         actions = [
             {name: 'Right', trigger: onRight, color: 'success'},
+            {name: 'Show Front', trigger: backToFront, color: 'primary'},
             {name: 'Wrong', trigger: onWrong, color: 'error'}
         ]
     }

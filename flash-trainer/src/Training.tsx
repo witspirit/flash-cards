@@ -43,22 +43,26 @@ const StatusBar = ({rightDeck, wrongDeck, onShow}: StatusBarProps) => {
 interface TrainingProps {
     deck: Deck
     front: string
+    shuffle: boolean
     onExit: () => void
 }
 
-export const Training = ({deck, front, onExit}: TrainingProps) => {
 
-    const [shuffledCards, setShuffledCards] = useState<FlashCard[]>(_.shuffle(deck.cards))
+export const Training = ({deck, front, shuffle, onExit}: TrainingProps) => {
+
+    const prepCards = (cards: FlashCard[]) => shuffle ? _.shuffle(cards) : cards
+
+    const [preparedCards, setPreparedCards] = useState<FlashCard[]>(prepCards(deck.cards))
     const [cardIndex, setCardIndex] = useState(0)
     const [face, setFace] = useState<'card' | 'done'>('card')
     const [rightDeck, setRightDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-correct`))
     const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-wrong`))
     const [displayDeck, setDisplayDeck] = useState<Deck | undefined>(undefined)
 
-    const currentCard = shuffledCards[cardIndex]
+    const currentCard = preparedCards[cardIndex]
 
     const reset = () => {
-        setShuffledCards(_.shuffle(deck.cards))
+        setPreparedCards(prepCards(deck.cards))
         setCardIndex(0)
         setFace('card')
         setRightDeck(deckUtil.empty(deck))
@@ -67,7 +71,7 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
 
     const next = () => {
         const nextIndex = cardIndex + 1
-        if (nextIndex >= shuffledCards.length) {
+        if (nextIndex >= preparedCards.length) {
             setFace('done')
         } else {
             setFace('card')
@@ -98,7 +102,7 @@ export const Training = ({deck, front, onExit}: TrainingProps) => {
     }
 
     return <Stack sx={{height: '100%'}}>
-        <TitleBar title={`Training ${cardIndex + 1}/${shuffledCards.length}`} onClose={onExit}/>
+        <TitleBar title={`Training ${cardIndex + 1}/${preparedCards.length}`} onClose={onExit}/>
         <Container sx={{flex: 1, alignContent: 'center'}}>
             {face === 'card' ?
                 <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right}
