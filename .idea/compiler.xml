@@ -28,4 +28,8 @@
       <module name="server" options="-parameters" />
     </option>
   </component>
+  <component name="TypeScriptCompiler">
+    <option name="typeScriptServiceDirectory" value="$PROJECT_DIR$/flash-trainer/node_modules/@typescript/native-preview" />
+    <option name="versionType" value="SERVICE_DIRECTORY" />
+  </component>
 </project>

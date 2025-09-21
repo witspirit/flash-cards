@@ -1,0 +1,4 @@
+[tools]
+gradle = "9.1.0"
+java = "graalvm-community-25.0.0"
+node = "24.8.0"
