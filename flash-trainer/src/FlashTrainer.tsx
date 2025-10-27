@@ -8,7 +8,7 @@ import {CsvResultList} from "./CsvResultList.tsx";
 import {csvTools} from "./csvTools.ts";
 
 interface TrainingConfig {
-    key: string,
+    trainingId: string,
     deck: Deck,
     front: string
     shuffle: boolean
@@ -29,7 +29,7 @@ export const FlashTrainer = () => {
 
     const startTraining = (term: string) => {
         setTraining({
-            key: nanoid(),
+            trainingId: nanoid(),
             deck: deck!,
             front: term,
             shuffle: performShuffle

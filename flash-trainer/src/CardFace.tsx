@@ -1,4 +1,4 @@
-import {Button, Card, CardContent, List, ListItem, ListItemText, Stack} from "@mui/material";
+import {Box, Button, Card, CardContent, List, ListItem, ListItemText, Stack} from "@mui/material";
 
 // Don't understand why I have to invent my own type... I cannot find the correct reference to refer to
 // the color type of the Button
@@ -21,6 +21,21 @@ interface CardFaceProps {
     actions: Action[]
 }
 
+const CardItem = ({word}: { word: string }) => {
+    if (word.startsWith('http')) {
+        // Assume image
+        return <ListItem>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
+                <img src={word} alt="Unable to load Flashcard Image" style={{maxWidth: '100%', maxHeight: 200}}/>
+            </Box>
+        </ListItem>
+    } else {
+        return <ListItem>
+            <ListItemText sx={{textAlign: 'center'}}>{word}</ListItemText>
+        </ListItem>
+    }
+}
+
 export const CardFace = ({words, actions}: CardFaceProps) => {
 
     return <Stack spacing={'20px'} sx={{minHeight: '50%'}}>
@@ -28,9 +43,7 @@ export const CardFace = ({words, actions}: CardFaceProps) => {
             <CardContent>
                 <List>
                     {words.map(w =>
-                        <ListItem key={w}>
-                            <ListItemText sx={{textAlign: 'center'}}>{w}</ListItemText>
-                        </ListItem>
+                        <CardItem key={w} word={w}/>
                     )}
                 </List>
             </CardContent>
