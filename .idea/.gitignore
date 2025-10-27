@@ -12,3 +12,6 @@
 /aws.xml
 /checkstyle-idea.xml
 /libraries/
+
+# Copilot data migration files don't seem relevant to share
+copilot.data.migration*
