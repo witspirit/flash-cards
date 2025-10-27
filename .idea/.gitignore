@@ -14,4 +14,4 @@
 /libraries/
 
 # Copilot data migration files don't seem relevant to share
-copilot.data.migration*
+copilot.data.migration.*.xml
