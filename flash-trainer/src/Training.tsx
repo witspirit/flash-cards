@@ -1,5 +1,4 @@
-import {Deck, deckUtil, FlashCard} from "./types.ts";
-import _ from 'underscore';
+import {Deck, deckUtil} from "./types.ts";
 import {useState} from "react";
 import {Box, Button, Container, IconButton, Stack, Typography} from "@mui/material";
 import {CsvResultList} from "./CsvResultList.tsx";
@@ -43,38 +42,29 @@ const StatusBar = ({rightDeck, wrongDeck, onShow}: StatusBarProps) => {
 interface TrainingProps {
     deck: Deck
     front: string
-    shuffle: boolean
+    onReset: () => void
     onExit: () => void
 }
 
 
-export const Training = ({deck, front, shuffle, onExit}: TrainingProps) => {
+export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
 
-    const prepCards = (cards: FlashCard[]) => shuffle ? _.shuffle(cards) : cards
-
-    const [preparedCards, setPreparedCards] = useState<FlashCard[]>(prepCards(deck.cards))
     const [cardIndex, setCardIndex] = useState(0)
-    const [face, setFace] = useState<'card' | 'done'>('card')
+    const [trainingState, setTrainingState] = useState<'in_progress' | 'done'>('in_progress')
+
     const [rightDeck, setRightDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-correct`))
     const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-wrong`))
+
     const [displayDeck, setDisplayDeck] = useState<Deck | undefined>(undefined)
 
-    const currentCard = preparedCards[cardIndex]
-
-    const reset = () => {
-        setPreparedCards(prepCards(deck.cards))
-        setCardIndex(0)
-        setFace('card')
-        setRightDeck(deckUtil.empty(deck))
-        setWrongDeck(deckUtil.empty(deck))
-    }
+    const currentCard = deck.cards[cardIndex]
 
     const next = () => {
         const nextIndex = cardIndex + 1
-        if (nextIndex >= preparedCards.length) {
-            setFace('done')
+        if (nextIndex >= deck.cards.length) {
+            setTrainingState('done')
         } else {
-            setFace('card')
+            setTrainingState('in_progress')
             setCardIndex(nextIndex)
         }
     }
@@ -102,13 +92,13 @@ export const Training = ({deck, front, shuffle, onExit}: TrainingProps) => {
     }
 
     return <Stack sx={{height: '100%'}}>
-        <TitleBar title={`Training ${cardIndex + 1}/${preparedCards.length}`} onClose={onExit}/>
+        <TitleBar title={`Training ${cardIndex + 1}/${deck.cards.length}`} onClose={onExit}/>
         <Container sx={{flex: 1, alignContent: 'center'}}>
-            {face === 'card' ?
+            {trainingState === 'in_progress' ?
                 <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right}
                               onWrong={wrong}/>
                 :
-                <TrainingSummary rightDeck={rightDeck} wrongDeck={wrongDeck} onReset={reset}/>
+                <TrainingSummary nrOfRightAnswers={rightDeck.cards.length} nrOfWrongAnswers={wrongDeck.cards.length} onReset={onReset}/>
             }
         </Container>
         <StatusBar rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show}/>

@@ -6,12 +6,12 @@ import {Training} from "./Training.tsx";
 import {nanoid} from "nanoid";
 import {CsvResultList} from "./CsvResultList.tsx";
 import {csvTools} from "./csvTools.ts";
+import _ from "underscore";
 
 interface TrainingConfig {
     trainingId: string,
     deck: Deck,
     front: string
-    shuffle: boolean
 }
 
 export const FlashTrainer = () => {
@@ -28,11 +28,11 @@ export const FlashTrainer = () => {
     }
 
     const startTraining = (term: string) => {
+        const trainingDeck = performShuffle ? {...deck!, cards: _.shuffle(deck!.cards)} : deck!
         setTraining({
             trainingId: nanoid(),
-            deck: deck!,
+            deck: trainingDeck,
             front: term,
-            shuffle: performShuffle
         })
     }
 
@@ -44,13 +44,16 @@ export const FlashTrainer = () => {
         <AppBar position={'static'}>
             <Toolbar sx={{gap: '10px'}}>
                 <Typography variant={'h6'} sx={{flexGrow: 1}}>FlashCard Trainer</Typography>
-                <FormControlLabel label="Shuffle" labelPlacement='start' control={<Switch checked={performShuffle} onChange={() => setPerformShuffle((prev) => !prev)} color='secondary'/>} />
+                <FormControlLabel label="Shuffle" labelPlacement='start' control={<Switch checked={performShuffle}
+                                                                                          onChange={() => setPerformShuffle((prev) => !prev)}
+                                                                                          color='secondary'/>}/>
                 <FileSelector onFileSelected={handleFileSelected}/>
             </Toolbar>
         </AppBar>
         <Box sx={{flexGrow: 1, overflow: 'scroll'}}>
             {deck ?
-                training ? <Training {...training} onExit={exitTraining}/>
+                training ? <Training key={training.trainingId} deck={training.deck} front={training.front}
+                                     onReset={() => startTraining(training?.front)} onExit={exitTraining}/>
                     : <CsvResultList deck={deck} onTrain={startTraining}/>
                 :
                 <Box sx={{height: '100%', textAlign: 'center', alignContent: 'center'}}><Typography variant={'h3'}>No

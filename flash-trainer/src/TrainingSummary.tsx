@@ -1,17 +1,16 @@
-import {Deck} from "./types.ts";
 import {Action, CardFace} from "./CardFace.tsx";
 
 interface TrainingSummaryProps {
-    rightDeck: Deck
-    wrongDeck: Deck
+    nrOfRightAnswers: number
+    nrOfWrongAnswers: number
     onReset: () => void
 }
 
-export const TrainingSummary = ({rightDeck, wrongDeck, onReset}: TrainingSummaryProps) => {
+export const TrainingSummary = ({nrOfRightAnswers, nrOfWrongAnswers, onReset}: TrainingSummaryProps) => {
     const words = [
         'Done !',
-        `You had ${rightDeck.cards.length} cards right.`,
-        `You had ${wrongDeck.cards.length} cards wrong.`
+        `You had ${nrOfRightAnswers} cards right.`,
+        `You had ${nrOfWrongAnswers} cards wrong.`
     ]
     const actions: Action[] = [{name: 'Reset and go again', trigger: onReset, color: 'primary'}]
 
