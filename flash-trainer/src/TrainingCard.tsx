@@ -1,10 +1,12 @@
-import {FlashCard} from "./types.ts";
-import {useState} from "react";
 import {Action, CardFace} from "./CardFace.tsx";
+import {FlashCard} from "./types.ts";
 
 interface TrainingCardProps {
     card: FlashCard
     front: string
+    face: 'front' | 'back'
+    onReveal: () => void
+    onBack: () => void
     onCorrect: () => void
     onWrong: () => void
 }
@@ -19,31 +21,21 @@ const field = (name: string, card: FlashCard) => {
     return card[name] || fallback
 }
 
-export const TrainingCard = ({card, front, onCorrect, onWrong}: TrainingCardProps) => {
-
-    const [face, setFace] = useState<'front' | 'back'>('front')
+export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, onWrong}: TrainingCardProps) => {
 
     const frontWord = field(front, card)
     const backWords = Object.keys(card).filter(f => f != front).map(f => field(f, card))
-
-    const reveal = () => {
-        setFace('back')
-    }
-
-    const backToFront = () => {
-        setFace('front')
-    }
 
     let words: string[]
     let actions: Action[]
     if (face === 'front') {
         words = [frontWord]
-        actions = [{name: 'Reveal', trigger: reveal, color: 'primary'}]
+        actions = [{name: 'Reveal', trigger: onReveal, color: 'primary'}]
     } else {
         words = backWords
         actions = [
             {name: 'Wrong', trigger: onWrong, color: 'error'},
-            {name: 'Show Front', trigger: backToFront, color: 'primary'},
+            {name: 'Show Front', trigger: onBack, color: 'primary'},
             {name: 'Correct', trigger: onCorrect, color: 'success'}
         ]
     }

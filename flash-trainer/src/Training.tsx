@@ -1,10 +1,10 @@
-import {Deck, deckUtil} from "./types.ts";
-import {useState} from "react";
+import {CloseRounded} from "@mui/icons-material";
 import {Box, Button, Container, IconButton, Stack, Typography} from "@mui/material";
+import {useState} from "react";
 import {CsvResultList} from "./CsvResultList.tsx";
 import {TrainingCard} from "./TrainingCard.tsx";
 import {TrainingSummary} from "./TrainingSummary.tsx";
-import {CloseRounded} from "@mui/icons-material";
+import {Deck, deckUtil} from "./types.ts";
 
 interface TitleBarProps {
     title: string
@@ -51,6 +51,7 @@ export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
 
     const [cardIndex, setCardIndex] = useState(0)
     const [trainingState, setTrainingState] = useState<'in_progress' | 'done'>('in_progress')
+    const [face, setFace] = useState<'front' | 'back'>('front')
 
     const [correctDeck, setCorrectDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-correct`))
     const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-wrong`))
@@ -67,6 +68,15 @@ export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
             setTrainingState('in_progress')
             setCardIndex(nextIndex)
         }
+        setFace('front')
+    }
+
+    const reveal = () => {
+        setFace('back')
+    }
+
+    const back = () => {
+        setFace('front')
     }
 
     const correct = () => {
@@ -95,10 +105,11 @@ export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
         <TitleBar title={`Training ${cardIndex + 1}/${deck.cards.length}`} onClose={onExit}/>
         <Container sx={{flex: 1, alignContent: 'center'}}>
             {trainingState === 'in_progress' ?
-                <TrainingCard key={currentCard[front]} card={currentCard} front={front} onCorrect={correct}
-                              onWrong={wrong}/>
+                <TrainingCard card={currentCard} front={front} face={face}
+                              onReveal={reveal} onBack={back} onCorrect={correct} onWrong={wrong}/>
                 :
-                <TrainingSummary nrOfRightAnswers={correctDeck.cards.length} nrOfWrongAnswers={wrongDeck.cards.length} onReset={onReset}/>
+                <TrainingSummary nrOfRightAnswers={correctDeck.cards.length} nrOfWrongAnswers={wrongDeck.cards.length}
+                                 onReset={onReset}/>
             }
         </Container>
         <StatusBar correctDeck={correctDeck} wrongDeck={wrongDeck} onShow={show}/>
