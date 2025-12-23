@@ -8,7 +8,7 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow,
+    TableRow, Tooltip,
     Typography
 } from "@mui/material";
 import {useHotkeys} from "react-hotkeys-hook";
@@ -51,7 +51,7 @@ const TitleBar = ({deck, onClose}: TitleBarProps) => {
     return <Stack direction={"row"} sx={{margin: '10px'}}>
         <Typography variant={'h5'} sx={{flex: 1}}>{deck.name}</Typography>
         <IconButton onClick={download}><FileDownloadRounded/></IconButton>
-        {onClose && <IconButton onClick={onClose}><CloseRounded/></IconButton>}
+        {onClose && <Tooltip title='Close (ESC)'><IconButton onClick={onClose}><CloseRounded/></IconButton></Tooltip>}
     </Stack>
 }
 

@@ -1,4 +1,5 @@
-import {Box, Button, Card, CardContent, List, ListItem, ListItemText, Stack} from "@mui/material";
+import {Box, Button, Card, CardContent, List, ListItem, ListItemText, Stack, Tooltip} from "@mui/material";
+import {ReactNode} from "react";
 
 // Don't understand why I have to invent my own type... I cannot find the correct reference to refer to
 // the color type of the Button
@@ -11,8 +12,10 @@ type ButtonColor = 'inherit'
     | 'warning'
 
 export interface Action {
-    name: string,
-    trigger: () => void,
+    name: string
+    shortcutHint?: string
+    display?: ReactNode
+    trigger: () => void
     color?: ButtonColor
 }
 
@@ -25,7 +28,7 @@ const CardItem = ({word}: { word: string }) => {
     if (word.startsWith('http')) {
         // Assume image
         return <ListItem>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
+            <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-around'}}>
                 <img src={word} alt="Unable to load Flashcard Image" style={{maxWidth: '100%', maxHeight: 200}}/>
             </Box>
         </ListItem>
@@ -34,6 +37,20 @@ const CardItem = ({word}: { word: string }) => {
             <ListItemText sx={{textAlign: 'center'}}>{word}</ListItemText>
         </ListItem>
     }
+}
+
+const ActionButton = ({action}: { action: Action }) => {
+    const tooltip = action.shortcutHint ? `${action.name} (${action.shortcutHint})` : action.name
+    return <Tooltip title={tooltip}>
+        <Button
+            onClick={action.trigger}
+            color={action.color}
+            variant={'contained'}
+            size={'large'}
+            sx={{minWidth: '30%'}}>
+            {action.display ?? action.name}
+        </Button>
+    </Tooltip>
 }
 
 export const CardFace = ({words, actions}: CardFaceProps) => {
@@ -49,16 +66,7 @@ export const CardFace = ({words, actions}: CardFaceProps) => {
             </CardContent>
         </Card>
         <Stack direction={'row'} justifyContent={"center"} spacing={'20px'}>
-            {actions.map(a =>
-                <Button key={a.name}
-                        onClick={a.trigger}
-                        color={a.color}
-                        variant={'contained'}
-                        size={'large'}
-                        sx={{minWidth: '30%'}}>
-                    {a.name}
-                </Button>
-            )}
+            {actions.map(a => <ActionButton key={a.name} action={a}/>)}
         </Stack>
     </Stack>
 }

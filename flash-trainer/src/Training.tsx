@@ -1,5 +1,5 @@
 import {CloseRounded} from "@mui/icons-material";
-import {Box, Button, Container, IconButton, Stack, Typography} from "@mui/material";
+import {Box, Button, Container, IconButton, Stack, Tooltip, Typography} from "@mui/material";
 import {useState} from "react";
 import {useHotkeys} from "react-hotkeys-hook";
 import {CsvResultList} from "./CsvResultList.tsx";
@@ -13,10 +13,13 @@ interface TitleBarProps {
 }
 
 const TitleBar = ({title, onClose}: TitleBarProps) => {
+
+    useHotkeys('esc', () => onClose && onClose());
+
     // I don't understand the positioning system I think... Things just don't seem to naturally align.
     return <Box sx={{margin: '10px', position: 'relative'}}>
         <Typography variant={'h5'} sx={{textAlign: 'center'}}>{title}</Typography>
-        {onClose && <IconButton onClick={onClose} sx={{position: 'absolute', top: '-6px', right: '0px'}}><CloseRounded/></IconButton>}
+        {onClose && <Tooltip title='Close (ESC)'><IconButton onClick={onClose} sx={{position: 'absolute', top: '-6px', right: '0px'}}><CloseRounded/></IconButton></Tooltip>}
     </Box>
 }
 

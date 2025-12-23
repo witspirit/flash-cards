@@ -16,7 +16,7 @@ export const TrainingSummary = ({nrOfRightAnswers, nrOfWrongAnswers, onReset}: T
         `You had ${nrOfRightAnswers} cards right.`,
         `You had ${nrOfWrongAnswers} cards wrong.`
     ]
-    const actions: Action[] = [{name: 'Reset and go again', trigger: onReset, color: 'primary'}]
+    const actions: Action[] = [{name: 'Reset and go again', shortcutHint: 'space', trigger: onReset, color: 'primary'}]
 
     return <CardFace words={words} actions={actions} />
 

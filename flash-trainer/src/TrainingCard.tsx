@@ -45,13 +45,13 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
     let actions: Action[]
     if (face === 'front') {
         words = [frontWord]
-        actions = [{name: 'Reveal', trigger: onReveal, color: 'primary'}]
+        actions = [{name: 'Reveal', shortcutHint: '↓', trigger: onReveal, color: 'primary'}]
     } else {
         words = backWords
         actions = [
-            {name: 'Wrong', trigger: onWrong, color: 'error'},
-            {name: 'Show Front', trigger: onBack, color: 'primary'},
-            {name: 'Correct', trigger: onCorrect, color: 'success'}
+            {name: 'Wrong', shortcutHint: '←', trigger: onWrong, color: 'error'},
+            {name: 'Show Front', shortcutHint: '↑', trigger: onBack, color: 'primary'},
+            {name: 'Correct', shortcutHint: '→', trigger: onCorrect, color: 'success'}
         ]
     }
 
