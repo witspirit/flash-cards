@@ -1,3 +1,4 @@
+import {useHotkeys} from "react-hotkeys-hook";
 import {Action, CardFace} from "./CardFace.tsx";
 
 interface TrainingSummaryProps {
@@ -7,6 +8,9 @@ interface TrainingSummaryProps {
 }
 
 export const TrainingSummary = ({nrOfRightAnswers, nrOfWrongAnswers, onReset}: TrainingSummaryProps) => {
+
+    useHotkeys('space', onReset)
+
     const words = [
         'Done !',
         `You had ${nrOfRightAnswers} cards right.`,

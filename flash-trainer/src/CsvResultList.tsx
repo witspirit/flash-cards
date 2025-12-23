@@ -11,6 +11,7 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
+import {useHotkeys} from "react-hotkeys-hook";
 import {Deck} from "./types.ts";
 import {csvTools} from "./csvTools.ts";
 import {CloseRounded, FileDownloadRounded, SchoolRounded} from "@mui/icons-material";
@@ -44,6 +45,8 @@ const TitleBar = ({deck, onClose}: TitleBarProps) => {
     const download = () => {
         csvTools.downloadDeck(deck)
     }
+
+    useHotkeys('esc', () => onClose && onClose());
 
     return <Stack direction={"row"} sx={{margin: '10px'}}>
         <Typography variant={'h5'} sx={{flex: 1}}>{deck.name}</Typography>

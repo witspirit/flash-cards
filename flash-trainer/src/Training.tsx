@@ -1,6 +1,7 @@
 import {CloseRounded} from "@mui/icons-material";
 import {Box, Button, Container, IconButton, Stack, Typography} from "@mui/material";
 import {useState} from "react";
+import {useHotkeys} from "react-hotkeys-hook";
 import {CsvResultList} from "./CsvResultList.tsx";
 import {TrainingCard} from "./TrainingCard.tsx";
 import {TrainingSummary} from "./TrainingSummary.tsx";
@@ -26,6 +27,9 @@ interface StatusBarProps {
 }
 
 const StatusBar = ({correctDeck, wrongDeck, onShow}: StatusBarProps) => {
+    useHotkeys('ctrl+arrowleft', () => onShow(wrongDeck))
+    useHotkeys('ctrl+arrowright', () => onShow(correctDeck))
+
     return <Stack direction={'row'} spacing={'20px'} sx={{width: '100%'}}>
         <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'error'}
                 onClick={() => onShow(wrongDeck)}>

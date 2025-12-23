@@ -1,3 +1,4 @@
+import {useHotkeys} from "react-hotkeys-hook";
 import {Action, CardFace} from "./CardFace.tsx";
 import {FlashCard} from "./types.ts";
 
@@ -22,6 +23,20 @@ const field = (name: string, card: FlashCard) => {
 }
 
 export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, onWrong}: TrainingCardProps) => {
+
+    const flip = () => {
+        if (face === 'front' ) {
+            onReveal()
+        } else {
+            onBack()
+        }
+    }
+
+    useHotkeys('space', flip);
+    useHotkeys('arrowdown', onReveal);
+    useHotkeys('arrowup', onBack);
+    useHotkeys('arrowright', () => face === 'back' && onCorrect());
+    useHotkeys('arrowleft', () => face === 'back' && onWrong());
 
     const frontWord = field(front, card)
     const backWords = Object.keys(card).filter(f => f != front).map(f => field(f, card))
