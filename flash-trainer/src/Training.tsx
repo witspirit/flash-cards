@@ -20,20 +20,20 @@ const TitleBar = ({title, onClose}: TitleBarProps) => {
 }
 
 interface StatusBarProps {
-    rightDeck: Deck
+    correctDeck: Deck
     wrongDeck: Deck
     onShow: (deck: Deck) => void
 }
 
-const StatusBar = ({rightDeck, wrongDeck, onShow}: StatusBarProps) => {
+const StatusBar = ({correctDeck, wrongDeck, onShow}: StatusBarProps) => {
     return <Stack direction={'row'} spacing={'20px'} sx={{width: '100%'}}>
-        <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'success'}
-                onClick={() => onShow(rightDeck)}>
-            {rightDeck.cards.length}
-        </Button>
         <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'error'}
                 onClick={() => onShow(wrongDeck)}>
             {wrongDeck.cards.length}
+        </Button>
+        <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'success'}
+                onClick={() => onShow(correctDeck)}>
+            {correctDeck.cards.length}
         </Button>
     </Stack>
 }
@@ -52,7 +52,7 @@ export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
     const [cardIndex, setCardIndex] = useState(0)
     const [trainingState, setTrainingState] = useState<'in_progress' | 'done'>('in_progress')
 
-    const [rightDeck, setRightDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-correct`))
+    const [correctDeck, setCorrectDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-correct`))
     const [wrongDeck, setWrongDeck] = useState<Deck>(deckUtil.empty(deck, `${deck.name}-wrong`))
 
     const [displayDeck, setDisplayDeck] = useState<Deck | undefined>(undefined)
@@ -69,8 +69,8 @@ export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
         }
     }
 
-    const right = () => {
-        setRightDeck(deckUtil.addCard(rightDeck, currentCard))
+    const correct = () => {
+        setCorrectDeck(deckUtil.addCard(correctDeck, currentCard))
         next()
     }
 
@@ -95,12 +95,12 @@ export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
         <TitleBar title={`Training ${cardIndex + 1}/${deck.cards.length}`} onClose={onExit}/>
         <Container sx={{flex: 1, alignContent: 'center'}}>
             {trainingState === 'in_progress' ?
-                <TrainingCard key={currentCard[front]} card={currentCard} front={front} onRight={right}
+                <TrainingCard key={currentCard[front]} card={currentCard} front={front} onCorrect={correct}
                               onWrong={wrong}/>
                 :
-                <TrainingSummary nrOfRightAnswers={rightDeck.cards.length} nrOfWrongAnswers={wrongDeck.cards.length} onReset={onReset}/>
+                <TrainingSummary nrOfRightAnswers={correctDeck.cards.length} nrOfWrongAnswers={wrongDeck.cards.length} onReset={onReset}/>
             }
         </Container>
-        <StatusBar rightDeck={rightDeck} wrongDeck={wrongDeck} onShow={show}/>
+        <StatusBar correctDeck={correctDeck} wrongDeck={wrongDeck} onShow={show}/>
     </Stack>
 }

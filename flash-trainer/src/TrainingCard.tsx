@@ -5,7 +5,7 @@ import {Action, CardFace} from "./CardFace.tsx";
 interface TrainingCardProps {
     card: FlashCard
     front: string
-    onRight: () => void
+    onCorrect: () => void
     onWrong: () => void
 }
 
@@ -19,7 +19,7 @@ const field = (name: string, card: FlashCard) => {
     return card[name] || fallback
 }
 
-export const TrainingCard = ({card, front, onRight, onWrong}: TrainingCardProps) => {
+export const TrainingCard = ({card, front, onCorrect, onWrong}: TrainingCardProps) => {
 
     const [face, setFace] = useState<'front' | 'back'>('front')
 
@@ -42,9 +42,9 @@ export const TrainingCard = ({card, front, onRight, onWrong}: TrainingCardProps)
     } else {
         words = backWords
         actions = [
-            {name: 'Right', trigger: onRight, color: 'success'},
+            {name: 'Wrong', trigger: onWrong, color: 'error'},
             {name: 'Show Front', trigger: backToFront, color: 'primary'},
-            {name: 'Wrong', trigger: onWrong, color: 'error'}
+            {name: 'Correct', trigger: onCorrect, color: 'success'}
         ]
     }
 
