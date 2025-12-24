@@ -118,7 +118,7 @@ export const Training = ({deck, front, onReset, onExit}: TrainingProps) => {
 
     return <Stack sx={{height: '100%'}}>
         <TitleBar title={`Training ${cardIndex + 1}/${deck.cards.length}`} onClose={onExit}/>
-        <Container sx={{flex: 1, alignContent: 'center'}}>
+        <Container sx={{flex: 1, alignContent: 'center', display: 'flex'}}>
             {trainingState === 'in_progress' ?
                 <TrainingCard card={currentCard} front={front} face={face}
                               onReveal={reveal} onBack={back} onCorrect={correct} onWrong={wrong}/>

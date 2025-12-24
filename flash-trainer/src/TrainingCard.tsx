@@ -1,3 +1,5 @@
+import {Box} from "@mui/material";
+import {useDrag} from "@use-gesture/react";
 import {useHotkeys} from "react-hotkeys-hook";
 import {Action, CardFace} from "./CardFace.tsx";
 import {FlashCard} from "./types.ts";
@@ -25,18 +27,49 @@ const field = (name: string, card: FlashCard) => {
 export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, onWrong}: TrainingCardProps) => {
 
     const flip = () => {
-        if (face === 'front' ) {
+        if (face === 'front') {
             onReveal()
         } else {
             onBack()
         }
     }
 
+    const markCorrect = () => {
+        if (face === 'back') {
+            onCorrect()
+        }
+    }
+
+    const markIncorrect = () => {
+        if (face === 'back') {
+            onWrong()
+        }
+    }
+
     useHotkeys('space', flip);
     useHotkeys('arrowdown', onReveal);
     useHotkeys('arrowup', onBack);
-    useHotkeys('arrowright', () => face === 'back' && onCorrect());
-    useHotkeys('arrowleft', () => face === 'back' && onWrong());
+    useHotkeys('arrowright', markCorrect);
+    useHotkeys('arrowleft', markIncorrect);
+
+    const bind = useDrag(({swipe: [swipeX, swipeY], event}): void => {
+            event.preventDefault();
+
+            if (swipeX === 1) { // swipe right
+                markCorrect();
+            }
+            if (swipeX === -1) { // swipe left
+                markIncorrect();
+            }
+            if (swipeY === -1) { // swipe up
+                onReveal();
+            }
+            if (swipeY === 1) { // swipe down
+                onBack();
+            }
+        },
+        {}
+    );
 
     const frontWord = field(front, card)
     const backWords = Object.keys(card).filter(f => f != front).map(f => field(f, card))
@@ -55,5 +88,7 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
         ]
     }
 
-    return <CardFace words={words} actions={actions} />
+    return <Box {...bind()} sx={{flex: 1, alignContent: 'center', touchAction: 'none', userSelect: 'none'}}>
+        <CardFace words={words} actions={actions}/>
+    </Box>
 }
