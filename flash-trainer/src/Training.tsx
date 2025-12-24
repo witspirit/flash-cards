@@ -19,7 +19,11 @@ const TitleBar = ({title, onClose}: TitleBarProps) => {
     // I don't understand the positioning system I think... Things just don't seem to naturally align.
     return <Box sx={{margin: '10px', position: 'relative'}}>
         <Typography variant={'h5'} sx={{textAlign: 'center'}}>{title}</Typography>
-        {onClose && <Tooltip title='Close (ESC)'><IconButton onClick={onClose} sx={{position: 'absolute', top: '-6px', right: '0px'}}><CloseRounded/></IconButton></Tooltip>}
+        {onClose && <Tooltip title='Close (ESC)'><IconButton onClick={onClose} sx={{
+            position: 'absolute',
+            top: '-6px',
+            right: '0px'
+        }}><CloseRounded/></IconButton></Tooltip>}
     </Box>
 }
 
@@ -34,14 +38,18 @@ const StatusBar = ({correctDeck, wrongDeck, onShow}: StatusBarProps) => {
     useHotkeys('ctrl+arrowright', () => onShow(correctDeck))
 
     return <Stack direction={'row'} spacing={'20px'} sx={{width: '100%'}}>
-        <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'error'}
-                onClick={() => onShow(wrongDeck)}>
-            {wrongDeck.cards.length}
-        </Button>
-        <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'success'}
-                onClick={() => onShow(correctDeck)}>
-            {correctDeck.cards.length}
-        </Button>
+        <Tooltip title='Show Wrong Answers (Ctrl + ←)'>
+            <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'error'}
+                    onClick={() => onShow(wrongDeck)}>
+                {wrongDeck.cards.length}
+            </Button>
+        </Tooltip>
+        <Tooltip title='Show Correct Answers (Ctrl + →)'>
+            <Button variant={'contained'} size={'large'} sx={{flex: 1}} color={'success'}
+                    onClick={() => onShow(correctDeck)}>
+                {correctDeck.cards.length}
+            </Button>
+        </Tooltip>
     </Stack>
 }
 
