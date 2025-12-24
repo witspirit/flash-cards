@@ -1,3 +1,4 @@
+import {Box} from "@mui/material";
 import {useHotkeys} from "react-hotkeys-hook";
 import {Action, CardFace} from "./CardFace.tsx";
 
@@ -18,6 +19,8 @@ export const TrainingSummary = ({nrOfRightAnswers, nrOfWrongAnswers, onReset}: T
     ]
     const actions: Action[] = [{name: 'Reset and go again', shortcutHint: 'space', trigger: onReset, color: 'primary'}]
 
-    return <CardFace words={words} actions={actions} />
+    return <Box sx={{flex: 1, alignContent: 'center'}}>
+        <CardFace words={words} actions={actions}/>
+    </Box>
 
 }

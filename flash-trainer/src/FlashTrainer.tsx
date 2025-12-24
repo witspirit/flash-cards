@@ -50,7 +50,7 @@ export const FlashTrainer = () => {
                 <FileSelector onFileSelected={handleFileSelected}/>
             </Toolbar>
         </AppBar>
-        <Box sx={{flexGrow: 1, overflow: 'scroll'}}>
+        <Box sx={{flexGrow: 1, overflow: 'auto'}}>
             {deck ?
                 training ? <Training key={training.trainingId} deck={training.deck} front={training.front}
                                      onReset={() => startTraining(training?.front)} onExit={exitTraining}/>
