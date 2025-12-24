@@ -41,7 +41,7 @@ export const FlashTrainer = () => {
     }
 
     return <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
-        <AppBar position={'static'}>
+        <AppBar position={'static'} sx={{overflow: 'hidden'}}>
             <Toolbar sx={{gap: '10px'}}>
                 <Typography variant={'h6'} sx={{flexGrow: 1}}>FlashCard Trainer</Typography>
                 <FormControlLabel label="Shuffle" labelPlacement='start' control={<Switch checked={performShuffle}
