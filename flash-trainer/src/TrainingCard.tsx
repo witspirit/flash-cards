@@ -1,3 +1,4 @@
+import {Check, Clear, Flip} from "@mui/icons-material";
 import {Box} from "@mui/material";
 import {useDrag} from "@use-gesture/react";
 import {useHotkeys} from "react-hotkeys-hook";
@@ -78,13 +79,13 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
     let actions: Action[]
     if (face === 'front') {
         words = [frontWord]
-        actions = [{name: 'Reveal', shortcutHint: '↓', trigger: onReveal, color: 'primary'}]
+        actions = [{name: 'Reveal', shortcutHint: '↓', display: <Flip />, trigger: onReveal, color: 'primary'}]
     } else {
         words = backWords
         actions = [
-            {name: 'Wrong', shortcutHint: '←', trigger: onWrong, color: 'error'},
-            {name: 'Show Front', shortcutHint: '↑', trigger: onBack, color: 'primary'},
-            {name: 'Correct', shortcutHint: '→', trigger: onCorrect, color: 'success'}
+            {name: 'Wrong', shortcutHint: '←', display: <Clear />, trigger: onWrong, color: 'error'},
+            {name: 'Show Front', shortcutHint: '↑', display: <Flip />, trigger: onBack, color: 'primary'},
+            {name: 'Correct', shortcutHint: '→', display: <Check />, trigger: onCorrect, color: 'success'}
         ]
     }
 
