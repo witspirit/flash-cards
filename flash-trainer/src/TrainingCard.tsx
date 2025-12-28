@@ -1,8 +1,8 @@
 import {Check, Clear, Flip} from "@mui/icons-material";
-import {useSpring, animated} from '@react-spring/web';
+import {animated, useSpring} from '@react-spring/web';
 import {useDrag} from "@use-gesture/react";
 import {useHotkeys} from "react-hotkeys-hook";
-import {Action, CardFace} from "./CardFace.tsx";
+import {CardFace} from "./CardFace.tsx";
 import {FlashCard} from "./types.ts";
 
 interface TrainingCardProps {
@@ -25,33 +25,11 @@ const field = (name: string, card: FlashCard) => {
     return card[name] || fallback
 }
 
-export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, onWrong}: TrainingCardProps) => {
+const Front = ({word, onReveal}: {word: string, onReveal: () => void}) => {
 
-    const flip = () => {
-        if (face === 'front') {
-            onReveal()
-        } else {
-            onBack()
-        }
-    }
-
-    const markCorrect = () => {
-        if (face === 'back') {
-            onCorrect()
-        }
-    }
-
-    const markIncorrect = () => {
-        if (face === 'back') {
-            onWrong()
-        }
-    }
-
-    useHotkeys('space', flip);
+    useHotkeys('space', onReveal);
     useHotkeys('arrowdown', onReveal);
-    useHotkeys('arrowup', onBack);
-    useHotkeys('arrowright', markCorrect);
-    useHotkeys('arrowleft', markIncorrect);
+    useHotkeys('arrowup', onReveal);
 
     const [{x, y, rot}, api] = useSpring(() => ({
         x: 0,
@@ -60,18 +38,72 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
         config: {tension: 300, friction: 30},
     }));
 
-    const correctOpacity = x.to({
-        range: [0, 120],
-        output: [0, 1],
-        extrapolate: 'clamp',
-    });
+    const bind = useDrag(({
+                              active,
+                              movement: [, my],
+                              swipe: [, swipeY]
+                          }): void => {
+            if (active) {
+                api.start({
+                    x: 0,
+                    y: my,
+                    rot: 0,
+                    immediate: true,
+                });
+                return
+            }
 
-    const incorrectOpacity = x.to({
-        range: [-120, 0],
-        output: [1, 0],
-        extrapolate: 'clamp',
-    });
+            if (swipeY === -1 || swipeY === 1) { // swipe up/down
+                api.start({
+                    y: swipeY * 1000,
+                    immediate: false,
+                    onRest: () => {
+                        onReveal();
+                        // reset for next card
+                        api.set({x: 0, y: 0, rot: 0});
+                    }
+                })
+            } else {
+                api.start({x: 0, y: 0, rot: 0});
+            }
+        },
+        {
+            pointer: {touch: true}, // enable touch events
+            axis: 'y',
+            swipe: {
+                duration: 1000 // max duration for a swipe
+            }
+        }
+    );
 
+    return <animated.div {...bind()}
+                         style={{
+                             x,
+                             y,
+                             rotateZ: rot,
+                             flex: 1,
+                             alignContent: 'center',
+                             touchAction: 'none',
+                             userSelect: 'none',
+                         }}>
+        <CardFace words={[word]} actions={[{name: 'Reveal', shortcutHint: '↓', display: <Flip/>, trigger: onReveal, color: 'primary'}]}/>
+    </animated.div>
+}
+
+const Back = ({words, onBack, onCorrect, onWrong}: { words: string[], onBack: () => void, onCorrect: () => void, onWrong: () => void }) => {
+
+    useHotkeys('space', onBack);
+    useHotkeys('arrowdown', onBack);
+    useHotkeys('arrowup', onBack);
+    useHotkeys('arrowright', onCorrect);
+    useHotkeys('arrowleft', onWrong);
+
+    const [{x, y, rot}, api] = useSpring(() => ({
+        x: 0,
+        y: 0,
+        rot: 0,
+        config: {tension: 300, friction: 30},
+    }));
 
     const bind = useDrag(({
                               active,
@@ -94,7 +126,7 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
                     rot: 20,
                     immediate: false,
                     onRest: () => {
-                        markCorrect();
+                        onCorrect();
                         // reset for next card
                         api.set({x: 0, y: 0, rot: 0});
                     },
@@ -105,13 +137,21 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
                     rot: -20,
                     immediate: false,
                     onRest: () => {
-                        markIncorrect();
+                        onWrong();
                         // reset for next card
                         api.set({x: 0, y: 0, rot: 0});
                     },
                 });
             } else if (swipeY === -1 || swipeY === 1) { // swipe up/down
-                flip();
+                api.start({
+                    y: swipeY * 1000,
+                    immediate: false,
+                    onRest: () => {
+                        onBack();
+                        // reset for next card
+                        api.set({x: 0, y: 0, rot: 0});
+                    }
+                })
             } else {
                 api.start({x: 0, y: 0, rot: 0});
             }
@@ -124,42 +164,31 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
         }
     );
 
-    const frontWord = field(front, card)
-    const backWords = Object.keys(card).filter(f => f != front).map(f => field(f, card))
-
-    let words: string[]
-    let actions: Action[]
-    if (face === 'front') {
-        words = [frontWord]
-        actions = [{name: 'Reveal', shortcutHint: '↓', display: <Flip/>, trigger: onReveal, color: 'primary'}]
-    } else {
-        words = backWords
-        actions = [
+    return <animated.div {...bind()}
+                         style={{
+                             x,
+                             y,
+                             rotateZ: rot,
+                             flex: 1,
+                             alignContent: 'center',
+                             touchAction: 'none',
+                             userSelect: 'none',
+                         }}>
+        <CardFace words={words} actions={[
             {name: 'Wrong', shortcutHint: '←', display: <Clear/>, trigger: onWrong, color: 'error'},
             {name: 'Show Front', shortcutHint: '↑', display: <Flip/>, trigger: onBack, color: 'primary'},
             {name: 'Correct', shortcutHint: '→', display: <Check/>, trigger: onCorrect, color: 'success'}
-        ]
+        ]}/>
+    </animated.div>
+}
+
+
+export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, onWrong}: TrainingCardProps) => {
+    if (face === 'front') {
+        const frontWord = field(front, card)
+        return <Front word={frontWord} onReveal={onReveal} />
+    } else {
+        const backWords = Object.keys(card).filter(f => f != front).map(f => field(f, card))
+        return <Back words={backWords} onWrong={onWrong} onCorrect={onCorrect} onBack={onBack} />
     }
-
-    return <>
-        <animated.div style={{opacity: correctOpacity, position: 'absolute', right: '20px', top: '50%', zIndex: 1}}>
-            <Check/>
-        </animated.div>
-
-        <animated.div style={{opacity: incorrectOpacity, position: 'absolute', left: '20px', top: '50%', zIndex: 1}}>
-            <Clear/>
-        </animated.div>
-        <animated.div {...bind()}
-                      style={{
-                          x,
-                          y,
-                          rotateZ: rot,
-                          flex: 1,
-                          alignContent: 'center',
-                          touchAction: 'none',
-                          userSelect: 'none',
-                      }}>
-            <CardFace words={words} actions={actions}/>
-        </animated.div>
-    </>
 }
