@@ -53,18 +53,31 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
     useHotkeys('arrowright', markCorrect);
     useHotkeys('arrowleft', markIncorrect);
 
-    const [{ x, y, rot }, api] = useSpring(() => ({
+    const [{x, y, rot}, api] = useSpring(() => ({
         x: 0,
         y: 0,
         rot: 0,
-        config: { tension: 300, friction: 30 },
+        config: {tension: 300, friction: 30},
     }));
+
+    const correctOpacity = x.to({
+        range: [0, 120],
+        output: [0, 1],
+        extrapolate: 'clamp',
+    });
+
+    const incorrectOpacity = x.to({
+        range: [-120, 0],
+        output: [1, 0],
+        extrapolate: 'clamp',
+    });
 
 
     const bind = useDrag(({
                               active,
                               movement: [mx, my],
-                              swipe: [swipeX, swipeY] }): void => {
+                              swipe: [swipeX, swipeY]
+                          }): void => {
             if (active) {
                 api.start({
                     x: mx,
@@ -83,7 +96,7 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
                     onRest: () => {
                         markCorrect();
                         // reset for next card
-                        api.set({ x: 0, y: 0, rot: 0 });
+                        api.set({x: 0, y: 0, rot: 0});
                     },
                 });
             } else if (swipeX === -1) { // swipe left
@@ -94,13 +107,13 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
                     onRest: () => {
                         markIncorrect();
                         // reset for next card
-                        api.set({ x: 0, y: 0, rot: 0 });
+                        api.set({x: 0, y: 0, rot: 0});
                     },
                 });
             } else if (swipeY === -1 || swipeY === 1) { // swipe up/down
                 flip();
             } else {
-                api.start({ x: 0, y: 0, rot: 0 });
+                api.start({x: 0, y: 0, rot: 0});
             }
         },
         {
@@ -128,16 +141,25 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
         ]
     }
 
-    return <animated.div {...bind()}
-                style={{
-                    x,
-                    y,
-                    rotateZ: rot,
-                    flex: 1,
-                    alignContent: 'center',
-                    touchAction: 'none',
-                    userSelect: 'none',
-                }}>
-        <CardFace words={words} actions={actions}/>
-    </animated.div>
+    return <>
+        <animated.div style={{opacity: correctOpacity, position: 'absolute', right: '20px', top: '50%', zIndex: 1}}>
+            <Check/>
+        </animated.div>
+
+        <animated.div style={{opacity: incorrectOpacity, position: 'absolute', left: '20px', top: '50%', zIndex: 1}}>
+            <Clear/>
+        </animated.div>
+        <animated.div {...bind()}
+                      style={{
+                          x,
+                          y,
+                          rotateZ: rot,
+                          flex: 1,
+                          alignContent: 'center',
+                          touchAction: 'none',
+                          userSelect: 'none',
+                      }}>
+            <CardFace words={words} actions={actions}/>
+        </animated.div>
+    </>
 }
