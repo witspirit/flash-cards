@@ -1,6 +1,7 @@
 import {Check, Clear, Flip} from "@mui/icons-material";
 import {Box} from "@mui/material";
 import {useDrag} from "@use-gesture/react";
+import {useState} from "react";
 import {useHotkeys} from "react-hotkeys-hook";
 import {Action, CardFace} from "./CardFace.tsx";
 import {FlashCard} from "./types.ts";
@@ -53,8 +54,18 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
     useHotkeys('arrowright', markCorrect);
     useHotkeys('arrowleft', markIncorrect);
 
-    const bind = useDrag(({swipe: [swipeX, swipeY], event}): void => {
-            event.preventDefault();
+    const [offset, setOffset] = useState({x: 0, y: 0});
+
+    const bind = useDrag(({movement: [mx, my], active, swipe: [swipeX, swipeY] }): void => {
+            if (active) {
+                setOffset({x: mx, y: my});
+                return
+            }
+
+            // gesture ended
+            setOffset({x: 0, y: 0});
+
+            console.log(`swipeX: ${swipeX}, swipeY: ${swipeY}`);
 
             if (swipeX === 1) { // swipe right
                 markCorrect();
@@ -62,14 +73,16 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
             if (swipeX === -1) { // swipe left
                 markIncorrect();
             }
-            if (swipeY === -1) { // swipe up
-                onReveal();
-            }
-            if (swipeY === 1) { // swipe down
-                onBack();
+            if (swipeY === -1 || swipeY === 1) { // swipe up/down
+                flip();
             }
         },
-        {}
+        {
+            pointer: {touch: true}, // enable touch events
+            swipe: {
+                duration: 1000 // max duration for a swipe
+            }
+        }
     );
 
     const frontWord = field(front, card)
@@ -79,17 +92,25 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
     let actions: Action[]
     if (face === 'front') {
         words = [frontWord]
-        actions = [{name: 'Reveal', shortcutHint: '↓', display: <Flip />, trigger: onReveal, color: 'primary'}]
+        actions = [{name: 'Reveal', shortcutHint: '↓', display: <Flip/>, trigger: onReveal, color: 'primary'}]
     } else {
         words = backWords
         actions = [
-            {name: 'Wrong', shortcutHint: '←', display: <Clear />, trigger: onWrong, color: 'error'},
-            {name: 'Show Front', shortcutHint: '↑', display: <Flip />, trigger: onBack, color: 'primary'},
-            {name: 'Correct', shortcutHint: '→', display: <Check />, trigger: onCorrect, color: 'success'}
+            {name: 'Wrong', shortcutHint: '←', display: <Clear/>, trigger: onWrong, color: 'error'},
+            {name: 'Show Front', shortcutHint: '↑', display: <Flip/>, trigger: onBack, color: 'primary'},
+            {name: 'Correct', shortcutHint: '→', display: <Check/>, trigger: onCorrect, color: 'success'}
         ]
     }
 
-    return <Box {...bind()} sx={{flex: 1, alignContent: 'center', touchAction: 'none', userSelect: 'none'}}>
+    return <Box {...bind()}
+                sx={{
+                    flex: 1,
+                    alignContent: 'center',
+                    touchAction: 'none',
+                    userSelect: 'none',
+                    transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
+                    transition: offset.x === 0 && offset.y === 0 ? 'transform 0.2s ease-out' : 'none'
+                }}>
         <CardFace words={words} actions={actions}/>
     </Box>
 }
