@@ -1,7 +1,6 @@
 import {Check, Clear, Flip} from "@mui/icons-material";
-import {Box} from "@mui/material";
+import {useSpring, animated} from '@react-spring/web';
 import {useDrag} from "@use-gesture/react";
-import {useState} from "react";
 import {useHotkeys} from "react-hotkeys-hook";
 import {Action, CardFace} from "./CardFace.tsx";
 import {FlashCard} from "./types.ts";
@@ -54,27 +53,54 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
     useHotkeys('arrowright', markCorrect);
     useHotkeys('arrowleft', markIncorrect);
 
-    const [offset, setOffset] = useState({x: 0, y: 0});
+    const [{ x, y, rot }, api] = useSpring(() => ({
+        x: 0,
+        y: 0,
+        rot: 0,
+        config: { tension: 300, friction: 30 },
+    }));
 
-    const bind = useDrag(({movement: [mx, my], active, swipe: [swipeX, swipeY] }): void => {
+
+    const bind = useDrag(({
+                              active,
+                              movement: [mx, my],
+                              swipe: [swipeX, swipeY] }): void => {
             if (active) {
-                setOffset({x: mx, y: my});
+                api.start({
+                    x: mx,
+                    y: my,
+                    rot: mx / 15,
+                    immediate: true,
+                });
                 return
             }
 
-            // gesture ended
-            setOffset({x: 0, y: 0});
-
-            console.log(`swipeX: ${swipeX}, swipeY: ${swipeY}`);
-
             if (swipeX === 1) { // swipe right
-                markCorrect();
-            }
-            if (swipeX === -1) { // swipe left
-                markIncorrect();
-            }
-            if (swipeY === -1 || swipeY === 1) { // swipe up/down
+                api.start({
+                    x: 1000,
+                    rot: 20,
+                    immediate: false,
+                    onRest: () => {
+                        markCorrect();
+                        // reset for next card
+                        api.set({ x: 0, y: 0, rot: 0 });
+                    },
+                });
+            } else if (swipeX === -1) { // swipe left
+                api.start({
+                    x: -1000,
+                    rot: -20,
+                    immediate: false,
+                    onRest: () => {
+                        markIncorrect();
+                        // reset for next card
+                        api.set({ x: 0, y: 0, rot: 0 });
+                    },
+                });
+            } else if (swipeY === -1 || swipeY === 1) { // swipe up/down
                 flip();
+            } else {
+                api.start({ x: 0, y: 0, rot: 0 });
             }
         },
         {
@@ -102,15 +128,16 @@ export const TrainingCard = ({card, front, face, onReveal, onBack, onCorrect, on
         ]
     }
 
-    return <Box {...bind()}
-                sx={{
+    return <animated.div {...bind()}
+                style={{
+                    x,
+                    y,
+                    rotateZ: rot,
                     flex: 1,
                     alignContent: 'center',
                     touchAction: 'none',
                     userSelect: 'none',
-                    transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
-                    transition: offset.x === 0 && offset.y === 0 ? 'transform 0.2s ease-out' : 'none'
                 }}>
         <CardFace words={words} actions={actions}/>
-    </Box>
+    </animated.div>
 }
